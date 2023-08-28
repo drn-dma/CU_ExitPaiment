@@ -69,15 +69,5 @@ namespace CU_ExitPaiment.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ICO_Settings {
-            get {
-                object obj = ResourceManager.GetObject("ICO_Settings", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
