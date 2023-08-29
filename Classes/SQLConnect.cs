@@ -11,7 +11,7 @@ namespace CU_ExitPaiment.Classes
     {
         #region Properties
 
-        public  static string _dataSource = @"";
+        public  static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";
         private readonly static string _initialCatalog = "CU_ExitPaiement";
 /*        private readonly static string _userID = "cuw";
 *//*        private readonly static string _password = "Climb-up2021";
@@ -171,6 +171,14 @@ namespace CU_ExitPaiment.Classes
                 conn.Close();
             }
             return sucess;
+        }
+
+
+
+        public static bool addArdoise(string nom, string prenom, bool isNew)
+        {
+            string query = $"INSERT INTO Clients (nom, prenom, isNew) VALUES ('{nom}','{prenom}',{Convert.ToInt32(isNew)})";
+            return ExecuteSQL(query);
         }
         #endregion
 

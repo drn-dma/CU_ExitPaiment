@@ -17,6 +17,8 @@ namespace CU_ExitPaiment.Forms
         public FormHome()
         {
             InitializeComponent();
+            refreshCustomers(csDatePicker1.Value);
+            calculLoyality(csDatePicker1.Value);
         }
 
         private void FormHome_Load(object sender, EventArgs e)
@@ -24,47 +26,158 @@ namespace CU_ExitPaiment.Forms
 
         }
 
-        private void datePicker_ValueChanged(object sender, EventArgs e)
+        #region Init Customers
+        private void refreshCustomers()
         {
-            label1.Text = datePicker.Value.ToShortDateString().ToString();
+            
+            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT isLoyal, isPaid, Id_Clients FROM Ardoise");
+            int i = 0;
+
+            foreach (Dictionary<string, object> row in sqlGetArdoise)
+            {
+
+                List<Dictionary<string, object>> sqlGetClient = SQLConnect.readDataFromSQL($"SELECT * FROM Clients where Id_Clients = {row["Id_Clients"]}");
+                Button button = new Button();
+                button.FlatStyle = FlatStyle.Flat;
+                button.ForeColor = Color.White;
+                button.Font = new Font("Arial", 12);
+                button.FlatAppearance.BorderColor = Color.White;
+                button.Anchor = AnchorStyles.None;
+                button.Size = new Size(200, 50);
+                button.Margin = new Padding(10, 10, 10, 10);
+
+
+                if ((bool)row["isLoyal"])
+                {
+                    button.BackColor = Color.FromArgb(50, 184, 177);
+                }
+                else if ((bool)row["isPaid"] && (!(bool)row["isLoyal"] || (bool)row["isLoyal"] == null))
+                {
+                    button.BackColor = Color.FromArgb(67, 163, 33);
+                }
+                else
+                {
+                    button.BackColor = Color.FromArgb(163, 26, 26);
+                }
+
+
+
+                button.Text = sqlGetClient[0]["nom"].ToString() + " " + sqlGetClient[0]["prenom"].ToString();
+                tablePnl.Controls.Add(button);
+                i++;
+            }
+
+            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void refreshCustomers(DateTime date)
         {
 
-            List<Dictionary<string, object>> sqlResult = SQLConnect.readDataFromSQL("SELECT * FROM Clients");
+            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
+            int i = 0;
+
+            foreach (Dictionary<string, object> row in sqlGetArdoise)
+            {
+
+                List<Dictionary<string, object>> sqlGetClient = SQLConnect.readDataFromSQL($"SELECT * FROM Clients where Id_Clients = {row["Id_Clients"]}");
+                Button button = new Button();
+                button.FlatStyle = FlatStyle.Flat;
+                button.ForeColor = Color.White;
+                button.Font = new Font("Arial", 12);
+                button.FlatAppearance.BorderColor = Color.White;
+                button.Anchor = AnchorStyles.None;
+                button.Size = new Size(200, 50);
+                button.Margin = new Padding(10, 10, 10, 10);
+
+
+                if ((bool)row["isLoyal"])
+                {
+                    button.BackColor = Color.FromArgb(50, 184, 177);
+                }
+                else if ((bool)row["isPaid"] && (!(bool)row["isLoyal"] || (bool)row["isLoyal"] == null))
+                {
+                    button.BackColor = Color.FromArgb(67, 163, 33);
+                }
+                else
+                {
+                    button.BackColor = Color.FromArgb(163, 26, 26);
+                }
 
 
 
-
-            TextBox tb1 = new TextBox();
-            tb1.Text = "Cell 1";
-            TextBox tb2 = new TextBox();
-            tb2.Text = "Cell 2";
-            TextBox tb3 = new TextBox();
-            tb3.Text = "Cell 3";
-            TextBox tb4 = new TextBox();
-            tb4.Text = "Cell 4";
-                
-            TextBox tb5 = new TextBox();
-            tb5.Text = "Cell 5";
-            TextBox tb6 = new TextBox();
-            tb6.Text = "Cell 6";
-            TextBox tb7 = new TextBox();
-            tb7.Text = "Cell 7";
-            TextBox tb8 = new TextBox();
-            tb8.Text = "Cell 8";
+                button.Text = sqlGetClient[0]["nom"].ToString() + " " + sqlGetClient[0]["prenom"].ToString();
+                tablePnl.Controls.Add(button);
+                i++;
+            }
 
 
-            tablePnl.Controls.Add(tb1,0,0);
-            tablePnl.Controls.Add(tb2, 1, 0);
-            tablePnl.Controls.Add(tb3, 2, 0);
-            tablePnl.Controls.Add(tb4, 0, 1);
-            tablePnl.Controls.Add(tb5, 1, 1);
-            tablePnl.Controls.Add(tb6, 2, 1);
-            tablePnl.Controls.Add(tb7, 0, 2);
-            tablePnl.Controls.Add(tb8, 1, 2);
+        }
 
+        #endregion 
+
+
+        private void btn_Refresh_Click(object sender, EventArgs e)
+        {
+            tablePnl.Controls.Clear();
+            refreshCustomers(csDatePicker1.Value);   
+            calculLoyality(csDatePicker1.Value);
+        }
+
+        private void btnBackToToday_Click(object sender, EventArgs e)
+        {
+            csDatePicker1.Value = DateTime.Now;
+            tablePnl.Controls.Clear();
+            refreshCustomers(csDatePicker1.Value);
+            calculLoyality(csDatePicker1.Value);
+        }
+
+
+        private void calculLoyality(DateTime date)
+        {
+            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
+            decimal loyal = 0;
+            decimal countArdoise = 0;
+
+            foreach(Dictionary<string,object> ardoise in sqlGetArdoise)
+            {
+                countArdoise++;
+                if ((bool)ardoise["isPaid"] && (bool)ardoise["isLoyal"])
+                {
+                    loyal++;
+                }
+            }
+
+            if(countArdoise == 0)
+            {
+                lbl_TauxFidel.Text = "0 %";
+                return;
+            }
+         
+
+            lbl_TauxFidel.Text = Math.Floor((loyal / countArdoise) * 100) + " %";
+        }
+
+        private void csDatePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            tablePnl.Controls.Clear();
+            refreshCustomers(csDatePicker1.Value);
+            calculLoyality(csDatePicker1.Value);
+        }
+
+        private void btn_NewCusto_Click(object sender, EventArgs e)
+        {
+            using(FormNewClient formNewCustomer = new FormNewClient())
+            {
+                DialogResult dr = formNewCustomer.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    /*MessageBox.Show(formNewCustomer._firstname + " " + formNewCustomer._name);*/
+                    SQLConnect.addArdoise(formNewCustomer._name, formNewCustomer._firstname, formNewCustomer._newClient);
+                    tablePnl.Controls.Clear();
+                    refreshCustomers(csDatePicker1.Value);
+                    calculLoyality(csDatePicker1.Value);
+                }
+            }
         }
     }
 }
