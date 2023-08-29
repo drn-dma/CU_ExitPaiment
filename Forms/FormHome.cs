@@ -1,4 +1,5 @@
 ﻿using CU_ExitPaiment.Classes;
+using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,8 @@ namespace CU_ExitPaiment.Forms
         }
 
         #region Init Customers
+
+
         private void refreshCustomers()
         {
             
@@ -37,7 +40,8 @@ namespace CU_ExitPaiment.Forms
             {
 
                 List<Dictionary<string, object>> sqlGetClient = SQLConnect.readDataFromSQL($"SELECT * FROM Clients where Id_Clients = {row["Id_Clients"]}");
-                Button button = new Button();
+                IconButton button = new IconButton();
+                button.AutoSize = true;
                 button.FlatStyle = FlatStyle.Flat;
                 button.ForeColor = Color.White;
                 button.Font = new Font("Arial", 12);
@@ -61,6 +65,12 @@ namespace CU_ExitPaiment.Forms
                     button.BackColor = Color.FromArgb(163, 26, 26);
                 }
 
+                if ((bool)sqlGetClient[0]["isNew"])
+                {
+                    button.IconChar = IconChar.Crown;
+                    button.IconColor = Color.FromArgb(192, 192, 0);
+                    button.TextImageRelation = TextImageRelation.ImageAboveText;
+                }
 
 
                 button.Text = sqlGetClient[0]["nom"].ToString() + " " + sqlGetClient[0]["prenom"].ToString();
@@ -81,7 +91,8 @@ namespace CU_ExitPaiment.Forms
             {
 
                 List<Dictionary<string, object>> sqlGetClient = SQLConnect.readDataFromSQL($"SELECT * FROM Clients where Id_Clients = {row["Id_Clients"]}");
-                Button button = new Button();
+                IconButton button = new IconButton();
+                button.AutoSize = true;
                 button.FlatStyle = FlatStyle.Flat;
                 button.ForeColor = Color.White;
                 button.Font = new Font("Arial", 12);
@@ -106,7 +117,12 @@ namespace CU_ExitPaiment.Forms
                     button.BackColor = Color.FromArgb(163, 26, 26);
                 }
 
-
+                if ((bool)sqlGetClient[0]["isNew"])
+                {
+                    button.IconChar = IconChar.Crown;
+                    button.IconColor = Color.FromArgb(192, 192, 0);
+                    button.TextImageRelation = TextImageRelation.TextBeforeImage;
+                }
 
                 button.Text = sqlGetClient[0]["nom"].ToString() + " " + sqlGetClient[0]["prenom"].ToString() + " : " + row["Id_Ardoise"].ToString();
                 tablePnl.Controls.Add(button);

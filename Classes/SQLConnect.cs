@@ -11,8 +11,8 @@ namespace CU_ExitPaiment.Classes
     {
         #region Properties
 
-/*        public  static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";**/
-        public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";
+        public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";
+        /*public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";*/
         private readonly static string _initialCatalog = "CU_ExitPaiement";
 /*        private readonly static string _userID = "cuw";
 *//*        private readonly static string _password = "Climb-up2021";
@@ -205,23 +205,41 @@ namespace CU_ExitPaiment.Classes
         public static bool checkExistingClient(string nom, string prenom, DateTime date)
         {
             bool success = false;
-            try
-            {
-                var resul_idClient = readDataFromSQL($"DECLARE @nom NVARCHAR(50) = '{nom}'; DECLARE @prenom NVARCHAR(50) = '{prenom}';SELECT Id_Clients FROM Clients WHERE LOWER(nom) = LOWER(@nom) AND LOWER(prenom) = LOWER(@prenom);");
+            int idClient = 0;
+            List<Dictionary<string,object>> i = new List<Dictionary<string, object>> {};
 
-                int idClient = (int)resul_idClient[0]["Id_Client"];
-                var result = readDataFromSQL($"DECLARE @clientId INT; SET @clientId = {idClient} DECLARE @today DATE; SET @today = GETDATE(); IF EXISTS ( SELECT 1 FROM Ardoise WHERE Id_Clients = @clientId AND dateArdoise = @today ) SELECT 'Vrai' AS Result ELSE SELECT 'Faux' AS Result;");
-                if (result.Count > 0)
-                {
-                    success = true;
-                }
+            var resul_idClient = readDataFromSQL($"DECLARE @nom NVARCHAR(50) = '{nom}'; DECLARE @prenom NVARCHAR(50) = '{prenom}';SELECT Id_Clients FROM Clients WHERE LOWER(nom) = LOWER(@nom) AND LOWER(prenom) = LOWER(@prenom);");
+            if(resul_idClient.Count > 0)
+            {
+                idClient = (int)resul_idClient[0]["Id_Clients"];
+                i = readDataFromSQL($"SELECT 1 FROM Ardoise WHERE Id_Clients = {idClient} AND dateArdoise = '{date.ToShortDateString()}'");
+
             }
-            catch
+
+            if (i.Count > 0)
+            {
+                success = true;
+            }
+            else
             {
                 success = false;
             }
             return success;
         }
+
+        public static int countClientVisit(int idClient)
+        {
+            var result = readDataFromSQL($"SELECT COUNT(*) as nbrVisite FROM Ardoise WHERE Id_Clients = {idClient}");
+            return (int)result[0]["nbrVisite"];
+        }
+
+
+
+
+
+
+
+
         #endregion
 
     }

@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pnl_Desktop = new System.Windows.Forms.Panel();
             this.btn_Settings = new FontAwesome.Sharp.IconButton();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.btn_Home = new FontAwesome.Sharp.IconButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pnl_Desktop = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -56,26 +56,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(289, 711);
             this.panel2.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(287, 250);
-            this.panel1.TabIndex = 0;
-            // 
-            // pnl_Desktop
-            // 
-            this.pnl_Desktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.pnl_Desktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_Desktop.Location = new System.Drawing.Point(289, 0);
-            this.pnl_Desktop.Name = "pnl_Desktop";
-            this.pnl_Desktop.Padding = new System.Windows.Forms.Padding(5);
-            this.pnl_Desktop.Size = new System.Drawing.Size(745, 711);
-            this.pnl_Desktop.TabIndex = 3;
             // 
             // btn_Settings
             // 
@@ -109,7 +89,7 @@
             this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.iconButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.iconButton1.ForeColor = System.Drawing.Color.LightGray;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
             this.iconButton1.IconColor = System.Drawing.Color.LightSlateGray;
             this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -118,7 +98,7 @@
             this.iconButton1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.iconButton1.Size = new System.Drawing.Size(287, 72);
             this.iconButton1.TabIndex = 7;
-            this.iconButton1.Text = "Home";
+            this.iconButton1.Text = "Statistiques";
             this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButton1.UseVisualStyleBackColor = true;
             // 
@@ -145,6 +125,16 @@
             this.btn_Home.UseVisualStyleBackColor = true;
             this.btn_Home.Click += new System.EventHandler(this.btn_Home_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(287, 250);
+            this.panel1.TabIndex = 0;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CU_ExitPaiment.Properties.Resources.ICO_Cuw;
@@ -154,6 +144,16 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // pnl_Desktop
+            // 
+            this.pnl_Desktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.pnl_Desktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnl_Desktop.Location = new System.Drawing.Point(289, 0);
+            this.pnl_Desktop.Name = "pnl_Desktop";
+            this.pnl_Desktop.Padding = new System.Windows.Forms.Padding(5);
+            this.pnl_Desktop.Size = new System.Drawing.Size(745, 711);
+            this.pnl_Desktop.TabIndex = 3;
             // 
             // Form1
             // 
