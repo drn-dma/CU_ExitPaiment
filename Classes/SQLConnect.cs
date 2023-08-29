@@ -11,7 +11,8 @@ namespace CU_ExitPaiment.Classes
     {
         #region Properties
 
-        public  static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";
+/*        public  static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";**/
+        public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";
         private readonly static string _initialCatalog = "CU_ExitPaiement";
 /*        private readonly static string _userID = "cuw";
 *//*        private readonly static string _password = "Climb-up2021";
@@ -88,15 +89,20 @@ namespace CU_ExitPaiment.Classes
                             {
                                 //! Ajout de la colonne et de la valeur dans le dictionnaire
                                 #region Ajout Valeur dans le dictionnaire en fonction du type
+                               
                                 try
                                 {
-                                    //! Ajout dans le dictionnaire si la valeur est un string
-                                    resultList[rowCount].Add(reader.GetName(i), reader.GetString(i));
-
+                                    resultList[rowCount].Add(reader.GetName(i), reader.GetDateTime(i));
                                 }
-                                catch (Exception ex)
+                                catch
                                 {
-                                    if (ex is InvalidCastException)
+                                    try
+                                    {
+                                        //! Ajout dans le dictionnaire si la valeur est un string
+                                        resultList[rowCount].Add(reader.GetName(i), reader.GetString(i));
+
+                                    }
+                                    catch 
                                     {
                                         try
                                         {
@@ -105,11 +111,20 @@ namespace CU_ExitPaiment.Classes
                                         }
                                         catch
                                         {
-                                            //! Ajout dans le dictionnaire si la valeur est un bool
-                                            resultList[rowCount].Add(reader.GetName(i), reader.GetBoolean(i));
+                                            try
+                                            {
+                                                resultList[rowCount].Add(reader.GetName(i), reader.GetFloat(i));
+                                            }
+                                            catch
+                                            {
+                                                //! Ajout dans le dictionnaire si la valeur est un bool
+                                                resultList[rowCount].Add(reader.GetName(i), reader.GetBoolean(i));
+                                            }
+                                            
                                         }
                                     }
                                 }
+                                
                                 #endregion
                             }
                             //! Incrémentation du nombre de ligne
@@ -149,7 +164,7 @@ namespace CU_ExitPaiment.Classes
             #endregion
 
             //! Booléen de retour si la requête s'est bien exécuté
-            bool sucess = false;
+            bool success = false;
 
             using (var conn = new SqlConnection(builder.ConnectionString))
             {
@@ -164,21 +179,48 @@ namespace CU_ExitPaiment.Classes
                     //! Vérification si la requête s'est bien exécuté + éxécution de la requête
                     if (command.ExecuteNonQuery() > 0)
                     {
-                        sucess = true;
+                        success = true;
                     }
                 }
                 //! Fermeture de la connexion
                 conn.Close();
             }
-            return sucess;
+            return success;
         }
 
 
 
-        public static bool addArdoise(string nom, string prenom, bool isNew)
+        public static bool addArdoise(string nom, string prenom, bool isNew, Dictionary<int, int> entreeMatos, DateTime date)
         {
-            string query = $"INSERT INTO Clients (nom, prenom, isNew) VALUES ('{nom}','{prenom}',{Convert.ToInt32(isNew)})";
-            return ExecuteSQL(query);
+            ExecuteSQL($"EXEC InsertNewClientAndArdoise @nom = '{nom}', @prenom = '{prenom}',@dateArdoise = '{date.ToShortDateString()}', @isNew = {Convert.ToInt32(isNew)}");
+            bool success = false;
+            foreach(var entree in entreeMatos)
+            {
+                success = ExecuteSQL($"INSERT INTO regler (Id_Ardoise, Id_EntreeMatos, quantite) VALUES ((SELECT Id_Ardoise FROM Clients c JOIN Ardoise a ON a.Id_Clients = c.Id_Clients WHERE nom = '{nom}' AND prenom = '{prenom}' AND a.dateArdoise = '{date.ToShortDateString()}'), {entree.Key}, {entree.Value})");
+            }
+
+            return success;
+        }
+
+        public static bool checkExistingClient(string nom, string prenom, DateTime date)
+        {
+            bool success = false;
+            try
+            {
+                var resul_idClient = readDataFromSQL($"DECLARE @nom NVARCHAR(50) = '{nom}'; DECLARE @prenom NVARCHAR(50) = '{prenom}';SELECT Id_Clients FROM Clients WHERE LOWER(nom) = LOWER(@nom) AND LOWER(prenom) = LOWER(@prenom);");
+
+                int idClient = (int)resul_idClient[0]["Id_Client"];
+                var result = readDataFromSQL($"DECLARE @clientId INT; SET @clientId = {idClient} DECLARE @today DATE; SET @today = GETDATE(); IF EXISTS ( SELECT 1 FROM Ardoise WHERE Id_Clients = @clientId AND dateArdoise = @today ) SELECT 'Vrai' AS Result ELSE SELECT 'Faux' AS Result;");
+                if (result.Count > 0)
+                {
+                    success = true;
+                }
+            }
+            catch
+            {
+                success = false;
+            }
+            return success;
         }
         #endregion
 

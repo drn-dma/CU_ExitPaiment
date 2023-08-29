@@ -45,7 +45,8 @@ namespace CU_ExitPaiment.Forms
                 button.Anchor = AnchorStyles.None;
                 button.Size = new Size(200, 50);
                 button.Margin = new Padding(10, 10, 10, 10);
-
+                button.Name = sqlGetClient[0]["Id_Clients"].ToString();
+                button.Click += new EventHandler(clickOnClient);
 
                 if ((bool)row["isLoyal"])
                 {
@@ -73,7 +74,7 @@ namespace CU_ExitPaiment.Forms
         private void refreshCustomers(DateTime date)
         {
 
-            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
+            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT Id_Ardoise, isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
             int i = 0;
 
             foreach (Dictionary<string, object> row in sqlGetArdoise)
@@ -88,6 +89,8 @@ namespace CU_ExitPaiment.Forms
                 button.Anchor = AnchorStyles.None;
                 button.Size = new Size(200, 50);
                 button.Margin = new Padding(10, 10, 10, 10);
+                button.Name = row["Id_Ardoise"].ToString();
+                button.Click += new EventHandler(clickOnClient);
 
 
                 if ((bool)row["isLoyal"])
@@ -105,7 +108,7 @@ namespace CU_ExitPaiment.Forms
 
 
 
-                button.Text = sqlGetClient[0]["nom"].ToString() + " " + sqlGetClient[0]["prenom"].ToString();
+                button.Text = sqlGetClient[0]["nom"].ToString() + " " + sqlGetClient[0]["prenom"].ToString() + " : " + row["Id_Ardoise"].ToString();
                 tablePnl.Controls.Add(button);
                 i++;
             }
@@ -164,6 +167,20 @@ namespace CU_ExitPaiment.Forms
             calculLoyality(csDatePicker1.Value);
         }
 
+        private void clickOnClient(object sender, EventArgs e)
+        {
+            using(FormArdoiseDetails formArdoiseDetails = new FormArdoiseDetails(((Button)sender).Name, csDatePicker1.Value))
+            {
+                DialogResult dr = formArdoiseDetails.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    tablePnl.Controls.Clear();
+                    refreshCustomers(csDatePicker1.Value);
+                    calculLoyality(csDatePicker1.Value);
+                }
+            }
+        }
+
         private void btn_NewCusto_Click(object sender, EventArgs e)
         {
             using(FormNewClient formNewCustomer = new FormNewClient())
@@ -171,8 +188,17 @@ namespace CU_ExitPaiment.Forms
                 DialogResult dr = formNewCustomer.ShowDialog();
                 if (dr == DialogResult.OK)
                 {
-                    /*MessageBox.Show(formNewCustomer._firstname + " " + formNewCustomer._name);*/
-                    SQLConnect.addArdoise(formNewCustomer._name, formNewCustomer._firstname, formNewCustomer._newClient);
+                    
+                    if(!SQLConnect.checkExistingClient(formNewCustomer._name, formNewCustomer._firstname, csDatePicker1.Value))
+                    {
+                        SQLConnect.addArdoise(formNewCustomer._name, formNewCustomer._firstname, formNewCustomer._newClient, formNewCustomer.entreMatos, csDatePicker1.Value);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ce client existe déjà pour cette date");
+                    }
+                    
+                    
                     tablePnl.Controls.Clear();
                     refreshCustomers(csDatePicker1.Value);
                     calculLoyality(csDatePicker1.Value);
