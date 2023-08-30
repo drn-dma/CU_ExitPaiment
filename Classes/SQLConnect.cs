@@ -11,8 +11,8 @@ namespace CU_ExitPaiment.Classes
     {
         #region Properties
 
-        public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";
-        /*public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";*/
+        /*public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";*/
+        public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";
         private readonly static string _initialCatalog = "CU_ExitPaiement";
 /*        private readonly static string _userID = "cuw";
 *//*        private readonly static string _password = "Climb-up2021";
@@ -117,8 +117,16 @@ namespace CU_ExitPaiment.Classes
                                             }
                                             catch
                                             {
-                                                //! Ajout dans le dictionnaire si la valeur est un bool
-                                                resultList[rowCount].Add(reader.GetName(i), reader.GetBoolean(i));
+                                                try
+                                                {
+                                                    //! Ajout dans le dictionnaire si la valeur est un bool
+                                                    resultList[rowCount].Add(reader.GetName(i), reader.GetBoolean(i));
+                                                }
+                                                catch
+                                                {
+                                                    //! Ajout dans le dictionnaire si la valeur est un double
+                                                    resultList[rowCount].Add(reader.GetName(i), reader.IsDBNull(i));
+                                                }
                                             }
                                             
                                         }
@@ -233,9 +241,23 @@ namespace CU_ExitPaiment.Classes
             return (int)result[0]["nbrVisite"];
         }
 
+        public static List<Dictionary<string, object>> getAllClientsName()
+        {
+            var result = readDataFromSQL($"SELECT CONCAT(nom, ' ',prenom) as nomPrenom FROM Clients");
+            return result;
+        }
 
+        public static List<Dictionary<string, object>> getAllLoyalComment()
+        {
+            var result = readDataFromSQL($"SELECT commentLoyality FROM Ardoise");
+            return result;
+        }
 
-
+        public static List<Dictionary<string, object>> getAllConsos()
+        {
+            var result = readDataFromSQL($"SELECT Id_Consommation, libelle, prix, Id_TypeConso FROM Consommation");
+            return result;
+        }
 
 
 

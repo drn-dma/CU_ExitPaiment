@@ -51,13 +51,54 @@ namespace CU_ExitPaiment.Forms
             this.cBox_EnfantChauss.SelectedIndex = 0;
             this.cBox_ReduitChauss.SelectedIndex = 0;
 
+            this.txtBox_NomPrenom.Select();
+            
+
+            var source = new AutoCompleteStringCollection();
+            var allClients = SQLConnect.getAllClientsName();
+            foreach(var client in allClients)
+            {
+                source.Add(client["nomPrenom"].ToString());
+            }
+            this.txtBox_NomPrenom.AutoCompleteCustomSource = source;
+
+
         }
 
 
+        private bool isUpper(string s)
+        {
+            return s.All(char.IsUpper);
+        }
+
         private void btn_Valider_Click(object sender, EventArgs e)
         {
-            _name = txtBox_Nom.Text;
-            _firstname = txtBox_Prenom.Text;
+            if(this.txtBox_NomPrenom.Text == "")
+            {
+                MessageBox.Show("Veuillez entrer un nom et un prénom");
+                return;
+            }
+
+            string nomPrenom = this.txtBox_NomPrenom.Text;
+            string[] nomPrenomSplit = nomPrenom.Split(' ');
+
+            string nom = "";
+            string prenom = "";
+
+            foreach(string s in nomPrenomSplit)
+            {
+                if (isUpper(s))
+                {
+                    nom += s + " ";
+                }else
+                {
+                    prenom += s + " ";
+                }
+            }
+            
+
+            _name = nom;
+            _firstname = prenom;
             _newClient = chkBox_New.Checked;
 
             this.entreMatos.Add(1, (int)cBox_AdulteEntry.SelectedItem);
@@ -73,6 +114,18 @@ namespace CU_ExitPaiment.Forms
             
         }
 
-        
+        private void chkBox_New_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkBox_New.Checked)
+            {
+                chkBox_New.BackColor = Color.FromArgb(155, 182, 86);
+                chkBox_New.ForeColor = Color.Black;
+            }
+            else
+            {
+                chkBox_New.BackColor = Color.FromArgb(58, 59, 64);
+                chkBox_New.ForeColor = Color.LightGray;
+            }
+        }
     }
 }

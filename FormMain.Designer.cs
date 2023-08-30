@@ -79,6 +79,7 @@
             this.btn_Settings.Text = "Settings";
             this.btn_Settings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_Settings.UseVisualStyleBackColor = true;
+            this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
             // 
             // iconButton1
             // 
@@ -98,9 +99,10 @@
             this.iconButton1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.iconButton1.Size = new System.Drawing.Size(287, 72);
             this.iconButton1.TabIndex = 7;
-            this.iconButton1.Text = "Statistiques";
+            this.iconButton1.Text = "à";
             this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButton1.UseVisualStyleBackColor = true;
+            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
             // 
             // btn_Home
             // 
@@ -152,7 +154,7 @@
             this.pnl_Desktop.Location = new System.Drawing.Point(289, 0);
             this.pnl_Desktop.Name = "pnl_Desktop";
             this.pnl_Desktop.Padding = new System.Windows.Forms.Padding(5);
-            this.pnl_Desktop.Size = new System.Drawing.Size(745, 711);
+            this.pnl_Desktop.Size = new System.Drawing.Size(795, 711);
             this.pnl_Desktop.TabIndex = 3;
             // 
             // Form1
@@ -161,12 +163,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1034, 711);
+            this.ClientSize = new System.Drawing.Size(1084, 711);
             this.Controls.Add(this.pnl_Desktop);
             this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(1050, 750);
+            this.MinimumSize = new System.Drawing.Size(1100, 750);
             this.Name = "Form1";
             this.Text = "CUW - Paiement Sortie";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -1,4 +1,5 @@
 ﻿using CU_ExitPaiment.Classes;
+using CU_ExitPaiment.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,9 @@ namespace CU_ExitPaiment
     public partial class Form1 : Form
     {
         private Form currentChildForm;
+        private FormHome formHome;
+        private FormStats formStats;
+        private FormSettings formSettings;
 
         public Form1()
         {
@@ -23,6 +27,10 @@ namespace CU_ExitPaiment
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Size = new Size(1024, 768);
+            this.formHome = new FormHome();
+            this.formStats = new FormStats();
+            this.formSettings = new FormSettings();
+            OpenChildForm(formHome);
 
         }
 
@@ -31,7 +39,7 @@ namespace CU_ExitPaiment
         {
             if(currentChildForm != null)
             {
-                currentChildForm.Close();
+                currentChildForm.Visible = false;
             }
             currentChildForm = childForm;
             childForm.TopLevel = false;
@@ -46,7 +54,17 @@ namespace CU_ExitPaiment
 
         private void btn_Home_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.FormHome());
+            OpenChildForm(formHome);
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(formStats);
+        }
+
+        private void btn_Settings_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(formSettings);
         }
     }
 }

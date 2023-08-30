@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormArdoiseDetails));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btn_NewClient = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.lbl_PrixApprox = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lbl_nbVisite = new System.Windows.Forms.Label();
@@ -56,14 +56,20 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cBox_AdulteChauss__5 = new System.Windows.Forms.ComboBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lstView_Conso = new System.Windows.Forms.ListView();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.btn_Checkout = new FontAwesome.Sharp.IconButton();
             this.btn_CancelCheckout = new FontAwesome.Sharp.IconButton();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_NewClient = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,30 +82,11 @@
             this.panel1.Size = new System.Drawing.Size(800, 80);
             this.panel1.TabIndex = 0;
             // 
-            // btn_NewClient
-            // 
-            this.btn_NewClient.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_NewClient.AutoSize = true;
-            this.btn_NewClient.FlatAppearance.BorderSize = 0;
-            this.btn_NewClient.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.btn_NewClient.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.btn_NewClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_NewClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_NewClient.ForeColor = System.Drawing.Color.LightGray;
-            this.btn_NewClient.IconChar = FontAwesome.Sharp.IconChar.Crown;
-            this.btn_NewClient.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btn_NewClient.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btn_NewClient.Location = new System.Drawing.Point(327, 12);
-            this.btn_NewClient.Name = "btn_NewClient";
-            this.btn_NewClient.Size = new System.Drawing.Size(184, 62);
-            this.btn_NewClient.TabIndex = 1;
-            this.btn_NewClient.Text = "Nom Prenom";
-            this.btn_NewClient.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btn_NewClient.UseVisualStyleBackColor = true;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.groupBox3);
+            this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.lbl_PrixApprox);
             this.panel2.Controls.Add(this.label5);
@@ -107,10 +94,21 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 80);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(800, 370);
             this.panel2.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.panel3.Controls.Add(this.btn_Checkout);
+            this.panel3.Controls.Add(this.btn_CancelCheckout);
+            this.panel3.Location = new System.Drawing.Point(587, 191);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 117);
+            this.panel3.TabIndex = 47;
             // 
             // lbl_PrixApprox
             // 
@@ -142,7 +140,7 @@
             this.lbl_nbVisite.AutoSize = true;
             this.lbl_nbVisite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_nbVisite.ForeColor = System.Drawing.Color.LightGray;
-            this.lbl_nbVisite.Location = new System.Drawing.Point(755, 327);
+            this.lbl_nbVisite.Location = new System.Drawing.Point(754, 327);
             this.lbl_nbVisite.Name = "lbl_nbVisite";
             this.lbl_nbVisite.Size = new System.Drawing.Size(32, 17);
             this.lbl_nbVisite.TabIndex = 42;
@@ -154,12 +152,11 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.LightGray;
-            this.label4.Location = new System.Drawing.Point(596, 327);
+            this.label4.Location = new System.Drawing.Point(595, 327);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(153, 17);
             this.label4.TabIndex = 41;
             this.label4.Text = "Nombre de visites : ";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // groupBox2
             // 
@@ -183,7 +180,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline);
             this.label3.ForeColor = System.Drawing.Color.LightGray;
-            this.label3.Location = new System.Drawing.Point(27, 72);
+            this.label3.Location = new System.Drawing.Point(27, 80);
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 17);
@@ -207,7 +204,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline);
             this.label2.ForeColor = System.Drawing.Color.LightGray;
-            this.label2.Location = new System.Drawing.Point(27, 49);
+            this.label2.Location = new System.Drawing.Point(27, 53);
             this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 17);
@@ -216,27 +213,33 @@
             // 
             // cBox_AdulteEntry__1
             // 
+            this.cBox_AdulteEntry__1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_AdulteEntry__1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_AdulteEntry__1.FormattingEnabled = true;
             this.cBox_AdulteEntry__1.Location = new System.Drawing.Point(156, 25);
             this.cBox_AdulteEntry__1.Name = "cBox_AdulteEntry__1";
-            this.cBox_AdulteEntry__1.Size = new System.Drawing.Size(38, 21);
-            this.cBox_AdulteEntry__1.TabIndex = 6;
+            this.cBox_AdulteEntry__1.Size = new System.Drawing.Size(46, 24);
+            this.cBox_AdulteEntry__1.TabIndex = 0;
             // 
             // cBox_EnfantEntry__3
             // 
+            this.cBox_EnfantEntry__3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_EnfantEntry__3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_EnfantEntry__3.FormattingEnabled = true;
-            this.cBox_EnfantEntry__3.Location = new System.Drawing.Point(156, 71);
+            this.cBox_EnfantEntry__3.Location = new System.Drawing.Point(156, 79);
             this.cBox_EnfantEntry__3.Name = "cBox_EnfantEntry__3";
-            this.cBox_EnfantEntry__3.Size = new System.Drawing.Size(38, 21);
-            this.cBox_EnfantEntry__3.TabIndex = 8;
+            this.cBox_EnfantEntry__3.Size = new System.Drawing.Size(46, 24);
+            this.cBox_EnfantEntry__3.TabIndex = 2;
             // 
             // cBox_ReduitEntry__2
             // 
+            this.cBox_ReduitEntry__2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_ReduitEntry__2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_ReduitEntry__2.FormattingEnabled = true;
-            this.cBox_ReduitEntry__2.Location = new System.Drawing.Point(156, 48);
+            this.cBox_ReduitEntry__2.Location = new System.Drawing.Point(156, 52);
             this.cBox_ReduitEntry__2.Name = "cBox_ReduitEntry__2";
-            this.cBox_ReduitEntry__2.Size = new System.Drawing.Size(38, 21);
-            this.cBox_ReduitEntry__2.TabIndex = 7;
+            this.cBox_ReduitEntry__2.Size = new System.Drawing.Size(46, 24);
+            this.cBox_ReduitEntry__2.TabIndex = 1;
             // 
             // groupBox1
             // 
@@ -267,7 +270,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline);
             this.label10.ForeColor = System.Drawing.Color.LightGray;
-            this.label10.Location = new System.Drawing.Point(23, 137);
+            this.label10.Location = new System.Drawing.Point(23, 142);
             this.label10.Margin = new System.Windows.Forms.Padding(3);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(124, 17);
@@ -277,38 +280,42 @@
             // cBox_ReduitBaud__6
             // 
             this.cBox_ReduitBaud__6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_ReduitBaud__6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_ReduitBaud__6.FormattingEnabled = true;
-            this.cBox_ReduitBaud__6.Location = new System.Drawing.Point(156, 45);
+            this.cBox_ReduitBaud__6.Location = new System.Drawing.Point(156, 49);
             this.cBox_ReduitBaud__6.Name = "cBox_ReduitBaud__6";
-            this.cBox_ReduitBaud__6.Size = new System.Drawing.Size(38, 21);
-            this.cBox_ReduitBaud__6.TabIndex = 31;
+            this.cBox_ReduitBaud__6.Size = new System.Drawing.Size(46, 24);
+            this.cBox_ReduitBaud__6.TabIndex = 4;
             // 
             // cBox_EnfantBaud__8
             // 
             this.cBox_EnfantBaud__8.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_EnfantBaud__8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_EnfantBaud__8.FormattingEnabled = true;
-            this.cBox_EnfantBaud__8.Location = new System.Drawing.Point(156, 68);
+            this.cBox_EnfantBaud__8.Location = new System.Drawing.Point(156, 76);
             this.cBox_EnfantBaud__8.Name = "cBox_EnfantBaud__8";
-            this.cBox_EnfantBaud__8.Size = new System.Drawing.Size(38, 21);
-            this.cBox_EnfantBaud__8.TabIndex = 32;
+            this.cBox_EnfantBaud__8.Size = new System.Drawing.Size(46, 24);
+            this.cBox_EnfantBaud__8.TabIndex = 5;
             // 
             // cBox_EnfantChauss__9
             // 
             this.cBox_EnfantChauss__9.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_EnfantChauss__9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_EnfantChauss__9.FormattingEnabled = true;
-            this.cBox_EnfantChauss__9.Location = new System.Drawing.Point(156, 159);
+            this.cBox_EnfantChauss__9.Location = new System.Drawing.Point(156, 168);
             this.cBox_EnfantChauss__9.Name = "cBox_EnfantChauss__9";
-            this.cBox_EnfantChauss__9.Size = new System.Drawing.Size(38, 21);
-            this.cBox_EnfantChauss__9.TabIndex = 38;
+            this.cBox_EnfantChauss__9.Size = new System.Drawing.Size(46, 24);
+            this.cBox_EnfantChauss__9.TabIndex = 8;
             // 
             // cBox_AdulteBaud__4
             // 
             this.cBox_AdulteBaud__4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_AdulteBaud__4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_AdulteBaud__4.FormattingEnabled = true;
             this.cBox_AdulteBaud__4.Location = new System.Drawing.Point(156, 22);
             this.cBox_AdulteBaud__4.Name = "cBox_AdulteBaud__4";
-            this.cBox_AdulteBaud__4.Size = new System.Drawing.Size(38, 21);
-            this.cBox_AdulteBaud__4.TabIndex = 30;
+            this.cBox_AdulteBaud__4.Size = new System.Drawing.Size(46, 24);
+            this.cBox_AdulteBaud__4.TabIndex = 3;
             // 
             // label8
             // 
@@ -329,7 +336,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline);
             this.label11.ForeColor = System.Drawing.Color.LightGray;
-            this.label11.Location = new System.Drawing.Point(23, 114);
+            this.label11.Location = new System.Drawing.Point(23, 115);
             this.label11.Margin = new System.Windows.Forms.Padding(3);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(123, 17);
@@ -339,11 +346,12 @@
             // cBox_ReduitChauss__7
             // 
             this.cBox_ReduitChauss__7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_ReduitChauss__7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_ReduitChauss__7.FormattingEnabled = true;
-            this.cBox_ReduitChauss__7.Location = new System.Drawing.Point(156, 136);
+            this.cBox_ReduitChauss__7.Location = new System.Drawing.Point(156, 141);
             this.cBox_ReduitChauss__7.Name = "cBox_ReduitChauss__7";
-            this.cBox_ReduitChauss__7.Size = new System.Drawing.Size(38, 21);
-            this.cBox_ReduitChauss__7.TabIndex = 37;
+            this.cBox_ReduitChauss__7.Size = new System.Drawing.Size(46, 24);
+            this.cBox_ReduitChauss__7.TabIndex = 7;
             // 
             // label9
             // 
@@ -351,7 +359,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline);
             this.label9.ForeColor = System.Drawing.Color.LightGray;
-            this.label9.Location = new System.Drawing.Point(23, 160);
+            this.label9.Location = new System.Drawing.Point(23, 169);
             this.label9.Margin = new System.Windows.Forms.Padding(3);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 17);
@@ -364,7 +372,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline);
             this.label7.ForeColor = System.Drawing.Color.LightGray;
-            this.label7.Location = new System.Drawing.Point(23, 46);
+            this.label7.Location = new System.Drawing.Point(23, 50);
             this.label7.Margin = new System.Windows.Forms.Padding(3);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(115, 17);
@@ -377,7 +385,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline);
             this.label6.ForeColor = System.Drawing.Color.LightGray;
-            this.label6.Location = new System.Drawing.Point(23, 69);
+            this.label6.Location = new System.Drawing.Point(23, 77);
             this.label6.Margin = new System.Windows.Forms.Padding(3);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(115, 17);
@@ -387,11 +395,69 @@
             // cBox_AdulteChauss__5
             // 
             this.cBox_AdulteChauss__5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBox_AdulteChauss__5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBox_AdulteChauss__5.FormattingEnabled = true;
-            this.cBox_AdulteChauss__5.Location = new System.Drawing.Point(156, 113);
+            this.cBox_AdulteChauss__5.Location = new System.Drawing.Point(156, 114);
             this.cBox_AdulteChauss__5.Name = "cBox_AdulteChauss__5";
-            this.cBox_AdulteChauss__5.Size = new System.Drawing.Size(38, 21);
-            this.cBox_AdulteChauss__5.TabIndex = 36;
+            this.cBox_AdulteChauss__5.Size = new System.Drawing.Size(46, 24);
+            this.cBox_AdulteChauss__5.TabIndex = 6;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.panel4.Controls.Add(this.iconButton1);
+            this.panel4.Location = new System.Drawing.Point(587, 98);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(199, 72);
+            this.panel4.TabIndex = 48;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox3.AutoSize = true;
+            this.groupBox3.Controls.Add(this.lstView_Conso);
+            this.groupBox3.ForeColor = System.Drawing.Color.LightGray;
+            this.groupBox3.Location = new System.Drawing.Point(304, 18);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(268, 290);
+            this.groupBox3.TabIndex = 49;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Consommations";
+            // 
+            // lstView_Conso
+            // 
+            this.lstView_Conso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.lstView_Conso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstView_Conso.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstView_Conso.HideSelection = false;
+            this.lstView_Conso.Location = new System.Drawing.Point(3, 16);
+            this.lstView_Conso.Name = "lstView_Conso";
+            this.lstView_Conso.Size = new System.Drawing.Size(262, 271);
+            this.lstView_Conso.TabIndex = 0;
+            this.lstView_Conso.UseCompatibleStateImageBehavior = false;
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.AutoSize = true;
+            this.iconButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.iconButton1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.iconButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.iconButton1.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButton1.ForeColor = System.Drawing.Color.LightGray;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.BasketShopping;
+            this.iconButton1.IconColor = System.Drawing.Color.LightGray;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.IconSize = 40;
+            this.iconButton1.Location = new System.Drawing.Point(0, 24);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(199, 48);
+            this.iconButton1.TabIndex = 10;
+            this.iconButton1.Text = "Ajouter des Consos";
+            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButton1.UseVisualStyleBackColor = true;
+            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
             // 
             // btn_Checkout
             // 
@@ -407,10 +473,10 @@
             this.btn_Checkout.IconColor = System.Drawing.Color.LightGray;
             this.btn_Checkout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btn_Checkout.IconSize = 40;
-            this.btn_Checkout.Location = new System.Drawing.Point(0, 85);
+            this.btn_Checkout.Location = new System.Drawing.Point(0, 21);
             this.btn_Checkout.Name = "btn_Checkout";
             this.btn_Checkout.Size = new System.Drawing.Size(200, 48);
-            this.btn_Checkout.TabIndex = 45;
+            this.btn_Checkout.TabIndex = 9;
             this.btn_Checkout.Text = "Passer à la caisse";
             this.btn_Checkout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_Checkout.UseVisualStyleBackColor = true;
@@ -430,25 +496,36 @@
             this.btn_CancelCheckout.IconColor = System.Drawing.Color.LightGray;
             this.btn_CancelCheckout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btn_CancelCheckout.IconSize = 40;
-            this.btn_CancelCheckout.Location = new System.Drawing.Point(0, 133);
+            this.btn_CancelCheckout.Location = new System.Drawing.Point(0, 69);
             this.btn_CancelCheckout.Name = "btn_CancelCheckout";
             this.btn_CancelCheckout.Size = new System.Drawing.Size(200, 48);
-            this.btn_CancelCheckout.TabIndex = 46;
+            this.btn_CancelCheckout.TabIndex = 9;
             this.btn_CancelCheckout.Text = "Annuler règlement";
             this.btn_CancelCheckout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_CancelCheckout.UseVisualStyleBackColor = true;
             this.btn_CancelCheckout.Visible = false;
             this.btn_CancelCheckout.Click += new System.EventHandler(this.btn_CancelCheckout_Click);
             // 
-            // panel3
+            // btn_NewClient
             // 
-            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.panel3.Controls.Add(this.btn_Checkout);
-            this.panel3.Controls.Add(this.btn_CancelCheckout);
-            this.panel3.Location = new System.Drawing.Point(587, 127);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 181);
-            this.panel3.TabIndex = 47;
+            this.btn_NewClient.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_NewClient.AutoSize = true;
+            this.btn_NewClient.FlatAppearance.BorderSize = 0;
+            this.btn_NewClient.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.btn_NewClient.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.btn_NewClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_NewClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_NewClient.ForeColor = System.Drawing.Color.LightGray;
+            this.btn_NewClient.IconChar = FontAwesome.Sharp.IconChar.Crown;
+            this.btn_NewClient.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btn_NewClient.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btn_NewClient.Location = new System.Drawing.Point(327, 12);
+            this.btn_NewClient.Name = "btn_NewClient";
+            this.btn_NewClient.Size = new System.Drawing.Size(184, 62);
+            this.btn_NewClient.TabIndex = 1;
+            this.btn_NewClient.Text = "Nom Prenom";
+            this.btn_NewClient.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btn_NewClient.UseVisualStyleBackColor = true;
             // 
             // FormArdoiseDetails
             // 
@@ -466,12 +543,15 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -508,5 +588,9 @@
         private FontAwesome.Sharp.IconButton btn_Checkout;
         private FontAwesome.Sharp.IconButton btn_CancelCheckout;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ListView lstView_Conso;
     }
 }

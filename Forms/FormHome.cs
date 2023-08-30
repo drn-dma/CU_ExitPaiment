@@ -20,11 +20,12 @@ namespace CU_ExitPaiment.Forms
             InitializeComponent();
             refreshCustomers(csDatePicker1.Value);
             calculLoyality(csDatePicker1.Value);
+
         }
 
         private void FormHome_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         #region Init Customers
@@ -204,7 +205,6 @@ namespace CU_ExitPaiment.Forms
                 DialogResult dr = formNewCustomer.ShowDialog();
                 if (dr == DialogResult.OK)
                 {
-                    
                     if(!SQLConnect.checkExistingClient(formNewCustomer._name, formNewCustomer._firstname, csDatePicker1.Value))
                     {
                         SQLConnect.addArdoise(formNewCustomer._name, formNewCustomer._firstname, formNewCustomer._newClient, formNewCustomer.entreMatos, csDatePicker1.Value);

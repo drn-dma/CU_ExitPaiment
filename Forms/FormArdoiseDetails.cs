@@ -21,10 +21,12 @@ namespace CU_ExitPaiment.Forms
         List<Dictionary<string, object>> sqlMatos;
         List<Dictionary<string, object>> sqlConso;
         List<Dictionary<string, object>> sqlClients;
+        FormAllConso formConso;
 
         public FormArdoiseDetails(string idArdoise, DateTime date)
         {
             InitializeComponent();
+            this.formConso = new FormAllConso();
             this.idArdoise = idArdoise;
             this.date = date;
 
@@ -44,15 +46,15 @@ namespace CU_ExitPaiment.Forms
             }
 
 
-            this.cBox_AdulteEntry__1.SelectedIndex = 0;
-            this.cBox_EnfantEntry__3.SelectedIndex = 0;
-            this.cBox_ReduitEntry__2.SelectedIndex = 0;
-            this.cBox_AdulteBaud__4.SelectedIndex = 0;
-            this.cBox_EnfantBaud__8.SelectedIndex = 0;
-            this.cBox_ReduitBaud__6.SelectedIndex = 0;
-            this.cBox_AdulteChauss__5.SelectedIndex = 0;
-            this.cBox_EnfantChauss__9.SelectedIndex = 0;
-            this.cBox_ReduitChauss__7.SelectedIndex = 0;
+            this.cBox_AdulteEntry__1.SelectedIndex = -1;
+            this.cBox_EnfantEntry__3.SelectedIndex = -1;
+            this.cBox_ReduitEntry__2.SelectedIndex = -1;
+            this.cBox_AdulteBaud__4.SelectedIndex = -1;
+            this.cBox_EnfantBaud__8.SelectedIndex = -1;
+            this.cBox_ReduitBaud__6.SelectedIndex = -1;
+            this.cBox_AdulteChauss__5.SelectedIndex = -1;
+            this.cBox_EnfantChauss__9.SelectedIndex = -1;
+            this.cBox_ReduitChauss__7.SelectedIndex = -1;
 
         
         }
@@ -146,6 +148,7 @@ namespace CU_ExitPaiment.Forms
 
             this.lbl_PrixApprox.Text = coutTotalApprox.ToString() + " €";
 
+            this.ActiveControl = null;
 
         }
 
@@ -157,21 +160,29 @@ namespace CU_ExitPaiment.Forms
             SQLConnect.ExecuteSQL("UPDATE regler SET quantite = " + cBox.SelectedIndex + " WHERE Id_Ardoise = " + this.idArdoise + " AND Id_EntreeMatos = " + idItem);
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btn_Checkout_Click(object sender, EventArgs e)
         {
+            string raison = "Ne veut pas";
             SQLConnect.ExecuteSQL("UPDATE Ardoise SET isPaid = 1 WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
             DialogResult dg = MessageBox.Show("Le client a t-il été fidélisé ? (carte 10 / abo)", "Client Fidélisé ?", MessageBoxButtons.YesNo);
 
-            if(dg == DialogResult.Yes)
+            if (dg == DialogResult.Yes)
             {
+
                 SQLConnect.ExecuteSQL("UPDATE Clients SET isNew = 0 WHERE Id_Clients = " + this.sqlClients[0]["Id_Clients"]);
                 SQLConnect.ExecuteSQL("UPDATE Ardoise SET isLoyal = 1 WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
             }
+            else
+            {
+                if(FunctionsLibs.InputBox("Pourquoi ?", "Raison de la non fidélisation :", ref raison) == DialogResult.OK)
+                {
+                    SQLConnect.ExecuteSQL("UPDATE Ardoise SET isLoyal = 0, commentLoyality = '" + raison + "' WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
+                }
+
+                SQLConnect.ExecuteSQL("UPDATE Clients SET isNew = 0 WHERE Id_Clients = " + this.sqlClients[0]["Id_Clients"]);
+            }
+
             this.Close();
         }
 
@@ -179,11 +190,21 @@ namespace CU_ExitPaiment.Forms
         {
             SQLConnect.ExecuteSQL("UPDATE Ardoise SET isPaid = 0, isLoyal = 0 WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
             DialogResult dg = MessageBox.Show("Le client est-il nouveau ?", "Client Nouveau ?", MessageBoxButtons.YesNo);
+            
             if(dg == DialogResult.Yes)
             {
                 SQLConnect.ExecuteSQL("UPDATE Clients SET isNew = 1 WHERE Id_Clients = " + this.sqlClients[0]["Id_Clients"]);
             }
 
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            DialogResult dg = this.formConso.ShowDialog();
+            if(dg == DialogResult.Yes)
+            {
+
+            }
         }
     }
 }
