@@ -31,67 +31,17 @@ namespace CU_ExitPaiment.Forms
         #region Init Customers
 
 
-        private void refreshCustomers()
-        {
-            
-            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT isLoyal, isPaid, Id_Clients FROM Ardoise");
-            int i = 0;
-
-            foreach (Dictionary<string, object> row in sqlGetArdoise)
-            {
-
-                List<Dictionary<string, object>> sqlGetClient = SQLConnect.readDataFromSQL($"SELECT * FROM Clients where Id_Clients = {row["Id_Clients"]}");
-                IconButton button = new IconButton();
-                button.AutoSize = true;
-                button.FlatStyle = FlatStyle.Flat;
-                button.ForeColor = Color.White;
-                button.Font = new Font("Arial", 12);
-                button.FlatAppearance.BorderColor = Color.White;
-                button.Anchor = AnchorStyles.None;
-                button.Size = new Size(200, 50);
-                button.Margin = new Padding(10, 10, 10, 10);
-                button.Name = sqlGetClient[0]["Id_Clients"].ToString();
-                button.Click += new EventHandler(clickOnClient);
-
-                if ((bool)row["isLoyal"])
-                {
-                    button.BackColor = Color.FromArgb(50, 184, 177);
-                }
-                else if ((bool)row["isPaid"] && (!(bool)row["isLoyal"] || (bool)row["isLoyal"] == null))
-                {
-                    button.BackColor = Color.FromArgb(67, 163, 33);
-                }
-                else
-                {
-                    button.BackColor = Color.FromArgb(163, 26, 26);
-                }
-
-                if ((bool)sqlGetClient[0]["isNew"])
-                {
-                    button.IconChar = IconChar.Crown;
-                    button.IconColor = Color.FromArgb(192, 192, 0);
-                    button.TextImageRelation = TextImageRelation.ImageAboveText;
-                }
-
-
-                button.Text = sqlGetClient[0]["nom"].ToString() + " " + sqlGetClient[0]["prenom"].ToString();
-                tablePnl.Controls.Add(button);
-                i++;
-            }
-
-            
-        }
 
         private void refreshCustomers(DateTime date)
         {
 
-            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT Id_Ardoise, isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
+            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL_NoParameters($"SELECT Id_Ardoise, isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
             int i = 0;
 
             foreach (Dictionary<string, object> row in sqlGetArdoise)
             {
 
-                List<Dictionary<string, object>> sqlGetClient = SQLConnect.readDataFromSQL($"SELECT * FROM Clients where Id_Clients = {row["Id_Clients"]}");
+                List<Dictionary<string, object>> sqlGetClient = SQLConnect.readDataFromSQL_NoParameters($"SELECT * FROM Clients where Id_Clients = {row["Id_Clients"]}");
                 IconButton button = new IconButton();
                 button.AutoSize = true;
                 button.FlatStyle = FlatStyle.Flat;
@@ -154,7 +104,7 @@ namespace CU_ExitPaiment.Forms
 
         private void calculLoyality(DateTime date)
         {
-            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL($"SELECT isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
+            List<Dictionary<string, object>> sqlGetArdoise = SQLConnect.readDataFromSQL_NoParameters($"SELECT isLoyal, isPaid, Id_Clients FROM Ardoise where dateArdoise = '{date.ToShortDateString()}'");
             decimal loyal = 0;
             decimal countArdoise = 0;
 

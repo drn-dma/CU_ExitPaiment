@@ -61,6 +61,7 @@ namespace CU_ExitPaiment.Classes
             textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
             textBox.AutoCompleteMode = AutoCompleteMode.Suggest;
             textBox.AutoCompleteCustomSource = source;
+            textBox.MaxLength = 90;
 
             buttonOk.Text = "OK";
             buttonOk.DialogResult = DialogResult.OK;

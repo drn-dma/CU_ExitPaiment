@@ -127,5 +127,6 @@ namespace CU_ExitPaiment.Forms
                 chkBox_New.ForeColor = Color.LightGray;
             }
         }
+
     }
 }

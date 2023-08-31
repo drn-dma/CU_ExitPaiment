@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -32,7 +33,7 @@ namespace CU_ExitPaiment.Forms
 
 
             for (int i = 0; i < 10; i++)
-            {
+            {   
                 this.cBox_AdulteEntry__1.Items.Add(i);
                 this.cBox_EnfantEntry__3.Items.Add(i);
                 this.cBox_ReduitEntry__2.Items.Add(i);
@@ -46,25 +47,27 @@ namespace CU_ExitPaiment.Forms
             }
 
 
-            this.cBox_AdulteEntry__1.SelectedIndex = -1;
-            this.cBox_EnfantEntry__3.SelectedIndex = -1;
-            this.cBox_ReduitEntry__2.SelectedIndex = -1;
-            this.cBox_AdulteBaud__4.SelectedIndex = -1;
-            this.cBox_EnfantBaud__8.SelectedIndex = -1;
-            this.cBox_ReduitBaud__6.SelectedIndex = -1;
-            this.cBox_AdulteChauss__5.SelectedIndex = -1;
-            this.cBox_EnfantChauss__9.SelectedIndex = -1;
-            this.cBox_ReduitChauss__7.SelectedIndex = -1;
+            this.cBox_AdulteEntry__1.SelectedIndex = 0;
+            this.cBox_EnfantEntry__3.SelectedIndex = 0;
+            this.cBox_ReduitEntry__2.SelectedIndex = 0;
+            this.cBox_AdulteBaud__4.SelectedIndex = 0;
+            this.cBox_EnfantBaud__8.SelectedIndex = 0;
+            this.cBox_ReduitBaud__6.SelectedIndex = 0;
+            this.cBox_AdulteChauss__5.SelectedIndex = 0;
+            this.cBox_EnfantChauss__9.SelectedIndex = 0;
+            this.cBox_ReduitChauss__7.SelectedIndex = 0;
 
+
+            
         
         }
 
         private void FormArdoiseDetails_Load(object sender, EventArgs e)
         {
-            this.sqlArdoise = SQLConnect.readDataFromSQL($"SELECT a.Id_Ardoise, CONCAT(c.nom, ' ', c.prenom) as nomPrenom ,a.dateArdoise ,a.isPaid ,a.aRegler ,a.isLoyal FROM Ardoise a JOIN Clients c on c.Id_Clients = a.Id_Clients where a.Id_Ardoise = {this.idArdoise} and a.dateArdoise = '{this.date.ToShortDateString()}'");
-            this.sqlMatos = SQLConnect.readDataFromSQL($"Select r.Id_EntreeMatos,r.quantite, e.prix FROM regler r JOIN Ardoise a on a.Id_Ardoise = r.Id_Ardoise JOIN EntreeMatos e ON e.Id_EntreeMatos = r.Id_EntreeMatos where r.Id_Ardoise = {this.idArdoise} and a.dateArdoise = '{date.ToShortDateString()}'");
-            this.sqlConso = SQLConnect.readDataFromSQL($"SELECT c.Id_Consommation, c.quantite FROM consommer c JOIN Ardoise a on a.Id_Ardoise = c.Id_Ardoise where c.Id_Ardoise = {this.idArdoise} and a.dateArdoise = '{date.ToShortDateString()}'");
-            this.sqlClients = SQLConnect.readDataFromSQL($"SELECT c.Id_Clients, CONCAT(c.nom, ' ', c.prenom) as nomPrenom, c.isNew FROM Clients c JOIN Ardoise a on a.Id_Clients = c.Id_Clients where a.Id_Ardoise = {this.idArdoise} and a.dateArdoise = '{date.ToShortDateString()}'");
+            this.sqlArdoise = SQLConnect.getArdoiseDetails(this.idArdoise, this.date);
+            this.sqlMatos = SQLConnect.readDataFromSQL_NoParameters($"Select r.Id_EntreeMatos,r.quantite, e.prix FROM regler r JOIN Ardoise a on a.Id_Ardoise = r.Id_Ardoise JOIN EntreeMatos e ON e.Id_EntreeMatos = r.Id_EntreeMatos where r.Id_Ardoise = {this.idArdoise} and a.dateArdoise = '{date.ToShortDateString()}'");
+            this.sqlConso = SQLConnect.readDataFromSQL_NoParameters($"SELECT c.Id_Consommation, c.quantite FROM consommer c JOIN Ardoise a on a.Id_Ardoise = c.Id_Ardoise where c.Id_Ardoise = {this.idArdoise} and a.dateArdoise = '{date.ToShortDateString()}'");
+            this.sqlClients = SQLConnect.readDataFromSQL_NoParameters($"SELECT c.Id_Clients, CONCAT(c.nom, ' ', c.prenom) as nomPrenom, c.isNew FROM Clients c JOIN Ardoise a on a.Id_Clients = c.Id_Clients where a.Id_Ardoise = {this.idArdoise} and a.dateArdoise = '{date.ToShortDateString()}'");
             
             this.Text = $"Ardoise de {sqlClients[0]["nomPrenom"]} du {this.date.ToShortDateString()}";
 
@@ -112,6 +115,7 @@ namespace CU_ExitPaiment.Forms
                             this.cBox_ReduitChauss__7.SelectedValueChanged += new System.EventHandler(this.onQuantityChange);
                             break;
                         case 8:
+                            
                             this.cBox_EnfantBaud__8.SelectedIndex = (int)row["quantite"];
                             this.cBox_EnfantBaud__8.SelectedValueChanged += new System.EventHandler(this.onQuantityChange);
                             break;
@@ -123,6 +127,24 @@ namespace CU_ExitPaiment.Forms
                 }
             }
 
+            var allCombo = grpBox_Entry.Controls.OfType<ComboBox>().ToList();
+            allCombo.AddRange(grpBox_Matos.Controls.OfType<ComboBox>().ToList());
+
+            foreach(ComboBox combo in allCombo)
+            {
+                
+                if (combo.SelectedIndex != 0)
+                { 
+                    combo.Font = new Font(combo.Font, FontStyle.Bold);
+                    
+                }
+                else
+                {
+                    combo.Font = new Font(combo.Font, FontStyle.Regular);
+                }
+                
+            }
+
             if(this.sqlClients.Count > 0 && (bool)this.sqlClients[0]["isNew"])
             {
                 this.btn_NewClient.IconChar = IconChar.Crown;
@@ -132,6 +154,7 @@ namespace CU_ExitPaiment.Forms
                 this.btn_NewClient.IconChar = IconChar.None;
             }
 
+            
 
             this.nbVisite = SQLConnect.countClientVisit((int)sqlClients[0]["Id_Clients"]);
             this.lbl_nbVisite.Text = this.nbVisite.ToString();
@@ -142,13 +165,32 @@ namespace CU_ExitPaiment.Forms
             foreach (Dictionary<string, object> row in sqlMatos)
             {
                 coutTotalApprox += (int)row["prix"] * (int)row["quantite"];
-            }
+            }   
 
-            SQLConnect.ExecuteSQL("UPDATE Ardoise SET aRegler = " + coutTotalApprox + " WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
+            SQLConnect.setAReglerForArdoise(coutTotalApprox,this.idArdoise,this.date);
 
             this.lbl_PrixApprox.Text = coutTotalApprox.ToString() + " €";
 
             this.ActiveControl = null;
+
+
+
+
+
+
+
+
+            if (!(bool)this.sqlArdoise[0]["isLoyal"])
+            {
+                this.grpBox_Comment.Visible = true;
+                
+                this.txtBox_Comment.Text = sqlArdoise[0]["commentLoyality"].ToString();
+            }
+            else
+            {
+                this.grpBox_Comment.Visible = false;
+            }
+
 
         }
 
@@ -157,30 +199,32 @@ namespace CU_ExitPaiment.Forms
         {
             ComboBox cBox = (ComboBox)sender;
             int idItem = int.Parse(cBox.Name.Split(new string[] {"__"}, StringSplitOptions.None)[1]);
-            SQLConnect.ExecuteSQL("UPDATE regler SET quantite = " + cBox.SelectedIndex + " WHERE Id_Ardoise = " + this.idArdoise + " AND Id_EntreeMatos = " + idItem);
+            SQLConnect.setMatosQuantityForArdoise(cBox.SelectedIndex, this.idArdoise, idItem);
+
         }
 
 
         private void btn_Checkout_Click(object sender, EventArgs e)
         {
             string raison = "Ne veut pas";
-            SQLConnect.ExecuteSQL("UPDATE Ardoise SET isPaid = 1 WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
+
+            SQLConnect.setPaidForArdoise(this.idArdoise, this.date);
             DialogResult dg = MessageBox.Show("Le client a t-il été fidélisé ? (carte 10 / abo)", "Client Fidélisé ?", MessageBoxButtons.YesNo);
 
             if (dg == DialogResult.Yes)
             {
 
-                SQLConnect.ExecuteSQL("UPDATE Clients SET isNew = 0 WHERE Id_Clients = " + this.sqlClients[0]["Id_Clients"]);
-                SQLConnect.ExecuteSQL("UPDATE Ardoise SET isLoyal = 1 WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
+                SQLConnect.setIsNewFalseForClient((int)this.sqlClients[0]["Id_Clients"]);
+                SQLConnect.setLoyalTrueForArdoise(this.idArdoise, this.date);
             }
             else
             {
                 if(FunctionsLibs.InputBox("Pourquoi ?", "Raison de la non fidélisation :", ref raison) == DialogResult.OK)
                 {
-                    SQLConnect.ExecuteSQL("UPDATE Ardoise SET isLoyal = 0, commentLoyality = '" + raison + "' WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
+                    SQLConnect.setLoyalFalseAndCommentForArdoise(this.idArdoise, this.date, raison);
                 }
 
-                SQLConnect.ExecuteSQL("UPDATE Clients SET isNew = 0 WHERE Id_Clients = " + this.sqlClients[0]["Id_Clients"]);
+                SQLConnect.setIsNewFalseForClient((int)this.sqlClients[0]["Id_Clients"]);
             }
 
             this.Close();
@@ -188,12 +232,12 @@ namespace CU_ExitPaiment.Forms
 
         private void btn_CancelCheckout_Click(object sender, EventArgs e)
         {
-            SQLConnect.ExecuteSQL("UPDATE Ardoise SET isPaid = 0, isLoyal = 0 WHERE Id_Ardoise = " + this.idArdoise + " AND dateArdoise = '" + this.date.ToShortDateString() + "'");
+            SQLConnect.cancelPaiement(this.idArdoise, this.date);
             DialogResult dg = MessageBox.Show("Le client est-il nouveau ?", "Client Nouveau ?", MessageBoxButtons.YesNo);
             
             if(dg == DialogResult.Yes)
             {
-                SQLConnect.ExecuteSQL("UPDATE Clients SET isNew = 1 WHERE Id_Clients = " + this.sqlClients[0]["Id_Clients"]);
+                SQLConnect.setIsNewTrueForClient((int)this.sqlClients[0]["Id_Clients"]);
             }
 
         }
