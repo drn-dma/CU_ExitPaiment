@@ -1,5 +1,6 @@
 ﻿using CU_ExitPaiment.Classes;
 using CU_ExitPaiment.Forms;
+using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,16 +56,34 @@ namespace CU_ExitPaiment
         private void btn_Home_Click(object sender, EventArgs e)
         {
             OpenChildForm(formHome);
+            this.btn_Home.Enabled = false;
+            this.btn_Stats.Enabled = true;
+            this.btn_Settings.Enabled = true;
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private void btn_Stats_Click(object sender, EventArgs e)
         {
             OpenChildForm(formStats);
+            this.btn_Home.Enabled = true;
+            this.btn_Stats.Enabled = false;
+            this.btn_Settings.Enabled = true;
         }
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
             OpenChildForm(formSettings);
+            this.btn_Home.Enabled = true;
+            this.btn_Stats.Enabled = true;
+            this.btn_Settings.Enabled = false;
+
+        }
+
+        private void btn_EnabledChanged(object sender, EventArgs e)
+        {
+            IconButton btn = (IconButton)sender;
+            btn.ForeColor = btn.Enabled == false ? Color.White : Color.LightGray;
+            btn.IconColor = btn.Enabled == false ? Color.White : Color.SlateGray;
+            btn.BackColor = btn.Enabled == false ? Color.SlateGray : Color.FromArgb(58, 59, 64);
         }
     }
 }

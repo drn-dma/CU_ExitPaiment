@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel2 = new System.Windows.Forms.Panel();
             this.btn_Settings = new FontAwesome.Sharp.IconButton();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.btn_Stats = new FontAwesome.Sharp.IconButton();
             this.btn_Home = new FontAwesome.Sharp.IconButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -47,7 +47,7 @@
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btn_Settings);
-            this.panel2.Controls.Add(this.iconButton1);
+            this.panel2.Controls.Add(this.btn_Stats);
             this.panel2.Controls.Add(this.btn_Home);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -79,30 +79,32 @@
             this.btn_Settings.Text = "Settings";
             this.btn_Settings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_Settings.UseVisualStyleBackColor = true;
+            this.btn_Settings.EnabledChanged += new System.EventHandler(this.btn_EnabledChanged);
             this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
             // 
-            // iconButton1
+            // btn_Stats
             // 
-            this.iconButton1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.iconButton1.FlatAppearance.BorderSize = 0;
-            this.iconButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
-            this.iconButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton1.ForeColor = System.Drawing.Color.LightGray;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
-            this.iconButton1.IconColor = System.Drawing.Color.LightSlateGray;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton1.Location = new System.Drawing.Point(0, 322);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.iconButton1.Size = new System.Drawing.Size(287, 72);
-            this.iconButton1.TabIndex = 7;
-            this.iconButton1.Text = "à";
-            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButton1.UseVisualStyleBackColor = true;
-            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
+            this.btn_Stats.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_Stats.FlatAppearance.BorderSize = 0;
+            this.btn_Stats.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.btn_Stats.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.btn_Stats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Stats.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Stats.ForeColor = System.Drawing.Color.LightGray;
+            this.btn_Stats.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
+            this.btn_Stats.IconColor = System.Drawing.Color.LightSlateGray;
+            this.btn_Stats.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.btn_Stats.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Stats.Location = new System.Drawing.Point(0, 322);
+            this.btn_Stats.Name = "btn_Stats";
+            this.btn_Stats.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btn_Stats.Size = new System.Drawing.Size(287, 72);
+            this.btn_Stats.TabIndex = 7;
+            this.btn_Stats.Text = "Statistiques";
+            this.btn_Stats.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_Stats.UseVisualStyleBackColor = true;
+            this.btn_Stats.EnabledChanged += new System.EventHandler(this.btn_EnabledChanged);
+            this.btn_Stats.Click += new System.EventHandler(this.btn_Stats_Click);
             // 
             // btn_Home
             // 
@@ -125,6 +127,7 @@
             this.btn_Home.Text = "Home";
             this.btn_Home.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_Home.UseVisualStyleBackColor = true;
+            this.btn_Home.EnabledChanged += new System.EventHandler(this.btn_EnabledChanged);
             this.btn_Home.Click += new System.EventHandler(this.btn_Home_Click);
             // 
             // panel1
@@ -188,7 +191,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private FontAwesome.Sharp.IconButton btn_Home;
         private FontAwesome.Sharp.IconButton btn_Settings;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton btn_Stats;
         private System.Windows.Forms.Panel pnl_Desktop;
     }
 }
