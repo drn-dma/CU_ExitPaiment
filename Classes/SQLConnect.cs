@@ -16,7 +16,7 @@ namespace CU_ExitPaiment.Classes
         #region Properties
 
         /*public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";*/
-        public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";
+        /*public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";*/
         private readonly static string _initialCatalog = "CU_ExitPaiement";
         /*        private readonly static string _userID = "cuw";
         *//*        private readonly static string _password = "Climb-up2021";
@@ -74,7 +74,7 @@ namespace CU_ExitPaiment.Classes
                 using (var command = new SqlCommand(queryWithParam, conn))
                 {
                     //! Ajout des paramètres à la requête
-                    foreach (var param in sqlParameters)
+                    foreach (SqlParameter param in sqlParameters)
                     {
                         command.Parameters.Add(param);
                     }
@@ -89,7 +89,7 @@ namespace CU_ExitPaiment.Classes
                         int rowCount = 0;
 
                         //! Parcours des lignes de résultat
-                            while (reader.Read())
+                        while (reader.Read())
                         {
                             //! Ajout d'un dictionnaire dans la liste de dictionnaire pour chaque ligne de résultat
                             resultList.Add(new Dictionary<string, object>());
@@ -202,7 +202,7 @@ namespace CU_ExitPaiment.Classes
                             {
                                 //! Ajout de la colonne et de la valeur dans le dictionnaire
                                 #region Ajout Valeur dans le dictionnaire en fonction du type
-                               
+
                                 try
                                 {
                                     resultList[rowCount].Add(reader.GetName(i), reader.GetDateTime(i));
@@ -215,7 +215,7 @@ namespace CU_ExitPaiment.Classes
                                         resultList[rowCount].Add(reader.GetName(i), reader.GetString(i));
 
                                     }
-                                    catch 
+                                    catch
                                     {
                                         try
                                         {
@@ -241,11 +241,11 @@ namespace CU_ExitPaiment.Classes
                                                     resultList[rowCount].Add(reader.GetName(i), reader.IsDBNull(i));
                                                 }
                                             }
-                                            
+
                                         }
                                     }
                                 }
-                                
+
                                 #endregion
                             }
                             //! Incrémentation du nombre de ligne
@@ -379,10 +379,10 @@ namespace CU_ExitPaiment.Classes
             parameters1.Add(q1Param4);
 
             string query1 = "EXEC InsertNewClientAndArdoise @nom = @name, @prenom = @firstname ,@dateArdoise = @date, @isNew = @new";
-            ExecuteSQL_WithParameters(query1,parameters1);
-            
+            ExecuteSQL_WithParameters(query1, parameters1);
+
             bool success = false;
-            foreach(var entree in entreeMatos)
+            foreach (var entree in entreeMatos)
             {
                 //! Ajout des paramètres à la requête
                 List<SqlParameter> parameters2 = new List<SqlParameter>();
@@ -413,10 +413,10 @@ namespace CU_ExitPaiment.Classes
         {
             bool success = false;
             int idClient = 0;
-            List<Dictionary<string,object>> result = new List<Dictionary<string, object>> {};
+            List<Dictionary<string, object>> result = new List<Dictionary<string, object>> { };
 
             string query = "DECLARE @nom NVARCHAR(50) = @name; DECLARE @prenom NVARCHAR(50) = @firstname; SELECT Id_Clients FROM Clients WHERE LOWER(nom) = LOWER(@nom) AND LOWER(prenom) = LOWER(@prenom); ";
-            
+
             List<SqlParameter> q1Parameters = new List<SqlParameter> { };
 
             SqlParameter q1Param = new SqlParameter("@name", DbType.String);
@@ -427,12 +427,12 @@ namespace CU_ExitPaiment.Classes
 
             q1Parameters.Add(q1Param);
             q1Parameters.Add(q1Param2);
-            
-            var resul_idClient = readDataFromSQL_WithParameters(query,q1Parameters);
-            
-            
-            
-            if(resul_idClient.Count > 0)
+
+            var resul_idClient = readDataFromSQL_WithParameters(query, q1Parameters);
+
+
+
+            if (resul_idClient.Count > 0)
             {
                 idClient = (int)resul_idClient[0]["Id_Clients"];
                 string queryToRead = "SELECT 1 FROM Ardoise WHERE Id_Clients = @idClient AND dateArdoise = @date";
@@ -467,14 +467,14 @@ namespace CU_ExitPaiment.Classes
             string queryToRead = ($"SELECT COUNT(*) as nbrVisite FROM Ardoise WHERE Id_Clients = @idClient");
 
             List<SqlParameter> parameters = new List<SqlParameter> { };
-            
+
             SqlParameter param = new SqlParameter("@idClient", DbType.Int64);
 
             param.Value = idClient;
 
             parameters.Add(param);
 
-            var result = readDataFromSQL_WithParameters(queryToRead,parameters);
+            var result = readDataFromSQL_WithParameters(queryToRead, parameters);
 
             return (int)result[0]["nbrVisite"];
         }
@@ -491,21 +491,32 @@ namespace CU_ExitPaiment.Classes
             return result;
         }
 
-        public static List<Dictionary<string,object>> getAllConsos()
+        public static List<Dictionary<string, object>> getAllConsos()
         {
             var result = readDataFromSQL_NoParameters($"SELECT Id_Consommation, libelle, prix, Id_TypeConso FROM Consommation");
             return result;
         }
 
-        public static List<Dictionary<string,object>> getArdoiseDetails(string IdArdoise, DateTime date)
+        public static List<Dictionary<string, object>> getClientInfo(string idArdoise)
+        {
+            string query = "SELECT c.Id_Clients, CONCAT(c.nom, ' ',c.prenom) as nomPrenom, c.isNew FROM Clients c JOIN Ardoise a on a.Id_Clients = c.Id_Clients where a.Id_Ardoise = @idArdoise";
+            List<SqlParameter> parameters = new List<SqlParameter> { };
+            SqlParameter param = new SqlParameter("@idArdoise", DbType.Int64);
+            param.Value = idArdoise;
+            parameters.Add(param);
+            var result = readDataFromSQL_WithParameters(query, parameters);
+            return result;
+        }
+
+        public static List<Dictionary<string, object>> getArdoiseDetails(string IdArdoise, DateTime date)
         {
             string queryToRead = "SELECT a.Id_Ardoise, CONCAT(c.nom, ' ', c.prenom) as nomPrenom ,a.dateArdoise ,a.isPaid ,a.aRegler ,a.isLoyal, a.commentLoyality FROM Ardoise a JOIN Clients c on c.Id_Clients = a.Id_Clients where a.Id_Ardoise = @idArdoise and a.dateArdoise = @date";
-            
-            List<SqlParameter> parameters = new List<SqlParameter> {};
+
+            List<SqlParameter> parameters = new List<SqlParameter> { };
 
             SqlParameter param2 = new SqlParameter("@date", DbType.String);
             SqlParameter param = new SqlParameter("@idArdoise", DbType.Int64);
-            
+
             param.Value = IdArdoise;
             param2.Value = date.ToShortDateString();
 
@@ -515,7 +526,7 @@ namespace CU_ExitPaiment.Classes
             return readDataFromSQL_WithParameters(queryToRead, parameters);
         }
 
-        public static List<Dictionary<string,object>> getMatosDetails(string IdArdoise, DateTime date)
+        public static List<Dictionary<string, object>> getMatosDetails(string IdArdoise, DateTime date)
         {
             string queryToRead = "Select r.Id_EntreeMatos,r.quantite, e.prix FROM regler r JOIN Ardoise a on a.Id_Ardoise = r.Id_Ardoise JOIN EntreeMatos e ON e.Id_EntreeMatos = r.Id_EntreeMatos where r.Id_Ardoise = @idArdoise and a.dateArdoise = @date";
 
@@ -558,7 +569,7 @@ namespace CU_ExitPaiment.Classes
         public static bool setMatosQuantityForArdoise(int quantite, string idArdoise, int idItem)
         {
             string query = "UPDATE regler SET quantite = @quantite WHERE Id_Ardoise = @idArdoise AND Id_EntreeMatos = @idItem";
-            
+
             List<SqlParameter> parameters = new List<SqlParameter> { };
 
             SqlParameter param = new SqlParameter("@quantite", SqlDbType.Int);
@@ -672,6 +683,89 @@ namespace CU_ExitPaiment.Classes
             return ExecuteSQL_WithParameters(query, parameters);
         }
 
+        public static List<Dictionary<string, object>> getConsoForArdoise(string idArdoise)
+        {
+            string query = "SELECT co.Id_Ardoise, co.Id_Consommation, co.quantite, c.prix, c.libelle FROM consommer co JOIN Consommation c ON c.Id_Consommation = co.Id_Consommation WHERE Id_Ardoise = @idArdoise";
+
+            List<SqlParameter> parameters = new List<SqlParameter> { };
+            SqlParameter param = new SqlParameter("@idArdoise", SqlDbType.Int);
+            param.Value = idArdoise;
+            parameters.Add(param);
+
+            return readDataFromSQL_WithParameters(query, parameters);
+        }
+
+        public static bool verifierSiConsoExiste(string idArdoise, string idConso)
+        {
+            string query = "SELECT COUNT(*) as compteur FROM consommer WHERE Id_Ardoise = @IdArdoise AND Id_Consommation = @IdConsommation";
+            List<SqlParameter> parameters = new List<SqlParameter> { };
+            SqlParameter param = new SqlParameter("@IdArdoise", SqlDbType.Int);
+            SqlParameter param2 = new SqlParameter("@IdConsommation", SqlDbType.Int);
+            param.Value = idArdoise;
+            param2.Value = idConso;
+            parameters.Add(param);
+            parameters.Add(param2);
+
+            var res = readDataFromSQL_WithParameters(query, parameters);
+
+            if (res[0]["compteur"].ToString() != "0")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool addConsoToArdoise(string idArdoise, Dictionary<string, int> allItems)
+        {
+            var actualConso = getConsoForArdoise(idArdoise);
+            int i = 0;
+            bool success = false;
+
+            foreach (var item in allItems)
+            {
+
+                if (verifierSiConsoExiste(idArdoise, item.Key))
+                {
+                    string query = "UPDATE consommer SET quantite += @quantite WHERE Id_Ardoise = @idArdoise AND Id_Consommation = @idConso";
+                    List<SqlParameter> parameters = new List<SqlParameter> { };
+                    SqlParameter param = new SqlParameter("@quantite", SqlDbType.Int);
+                    SqlParameter param2 = new SqlParameter("@idArdoise", SqlDbType.Int);
+                    SqlParameter param3 = new SqlParameter("@idConso", SqlDbType.Int);
+                    param.Value = item.Value;
+                    param2.Value = idArdoise;
+                    param3.Value = item.Key;
+                    parameters.Add(param);
+                    parameters.Add(param2);
+                    parameters.Add(param3);
+
+                    success = ExecuteSQL_WithParameters(query, parameters);
+
+                }
+                else
+                {
+                    string query = "INSERT INTO consommer (Id_Ardoise,Id_Consommation,quantite) VALUES (@idArdoise,@idConso,@quantite)";
+                    List<SqlParameter> parameters = new List<SqlParameter> { };
+                    SqlParameter param = new SqlParameter("@quantite", SqlDbType.Int);
+                    SqlParameter param2 = new SqlParameter("@idArdoise", SqlDbType.Int);
+                    SqlParameter param3 = new SqlParameter("@idConso", SqlDbType.Int);
+                    param.Value = item.Value;
+                    param2.Value = idArdoise;
+                    param3.Value = item.Key;
+                    parameters.Add(param);
+                    parameters.Add(param2);
+                    parameters.Add(param3);
+
+                    success = ExecuteSQL_WithParameters(query, parameters);
+                }
+
+
+            }
+
+            return success;
+        }
 
         #endregion
     }

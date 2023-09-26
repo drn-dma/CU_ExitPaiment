@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pnl_Top = new System.Windows.Forms.Panel();
+            this.btn_Today = new FontAwesome.Sharp.IconButton();
             this.btn_NewCusto = new FontAwesome.Sharp.IconButton();
             this.btn_Refresh = new FontAwesome.Sharp.IconButton();
             this.lbl_TauxFidel = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tablePnl = new System.Windows.Forms.TableLayoutPanel();
             this.csDatePicker1 = new CU_ExitPaiment.Classes.CSDatePicker();
-            this.btn_Today = new FontAwesome.Sharp.IconButton();
             this.pnl_Top.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +55,26 @@
             this.pnl_Top.Name = "pnl_Top";
             this.pnl_Top.Size = new System.Drawing.Size(854, 79);
             this.pnl_Top.TabIndex = 2;
+            // 
+            // btn_Today
+            // 
+            this.btn_Today.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btn_Today.AutoSize = true;
+            this.btn_Today.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btn_Today.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Today.ForeColor = System.Drawing.Color.LightGray;
+            this.btn_Today.IconChar = FontAwesome.Sharp.IconChar.CalendarDay;
+            this.btn_Today.IconColor = System.Drawing.Color.LightGray;
+            this.btn_Today.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btn_Today.IconSize = 24;
+            this.btn_Today.Location = new System.Drawing.Point(500, 22);
+            this.btn_Today.Name = "btn_Today";
+            this.btn_Today.Size = new System.Drawing.Size(95, 32);
+            this.btn_Today.TabIndex = 9;
+            this.btn_Today.Text = "Aujourd\'hui";
+            this.btn_Today.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btn_Today.UseVisualStyleBackColor = true;
+            this.btn_Today.Click += new System.EventHandler(this.btnBackToToday_Click);
             // 
             // btn_NewCusto
             // 
@@ -164,31 +184,11 @@
             this.csDatePicker1.Location = new System.Drawing.Point(289, 21);
             this.csDatePicker1.MinimumSize = new System.Drawing.Size(4, 35);
             this.csDatePicker1.Name = "csDatePicker1";
-            this.csDatePicker1.Size = new System.Drawing.Size(186, 35);
+            this.csDatePicker1.Size = new System.Drawing.Size(205, 35);
             this.csDatePicker1.SkinColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(182)))), ((int)(((byte)(86)))));
             this.csDatePicker1.TabIndex = 3;
             this.csDatePicker1.TextColor = System.Drawing.Color.White;
             this.csDatePicker1.ValueChanged += new System.EventHandler(this.csDatePicker1_ValueChanged);
-            // 
-            // btn_Today
-            // 
-            this.btn_Today.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_Today.AutoSize = true;
-            this.btn_Today.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.btn_Today.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Today.ForeColor = System.Drawing.Color.LightGray;
-            this.btn_Today.IconChar = FontAwesome.Sharp.IconChar.CalendarDay;
-            this.btn_Today.IconColor = System.Drawing.Color.LightGray;
-            this.btn_Today.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btn_Today.IconSize = 24;
-            this.btn_Today.Location = new System.Drawing.Point(481, 23);
-            this.btn_Today.Name = "btn_Today";
-            this.btn_Today.Size = new System.Drawing.Size(95, 32);
-            this.btn_Today.TabIndex = 9;
-            this.btn_Today.Text = "Aujourd\'hui";
-            this.btn_Today.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btn_Today.UseVisualStyleBackColor = true;
-            this.btn_Today.Click += new System.EventHandler(this.btnBackToToday_Click);
             // 
             // FormHome
             // 

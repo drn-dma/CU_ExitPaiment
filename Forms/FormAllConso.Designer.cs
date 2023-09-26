@@ -35,17 +35,18 @@
             this.btn_Alcool = new FontAwesome.Sharp.IconButton();
             this.btn_Soft = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lstView_Consos = new System.Windows.Forms.ListView();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_Delete = new FontAwesome.Sharp.IconButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lstView_Basket = new System.Windows.Forms.ListView();
             this.clLibelle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clQuantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_Save = new FontAwesome.Sharp.IconButton();
+            this.lstView_Consos = new System.Windows.Forms.ListView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -157,22 +158,29 @@
             this.panel2.Size = new System.Drawing.Size(834, 402);
             this.panel2.TabIndex = 1;
             // 
-            // lstView_Consos
+            // panel3
             // 
-            this.lstView_Consos.Activation = System.Windows.Forms.ItemActivation.TwoClick;
-            this.lstView_Consos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lstView_Consos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstView_Consos.HideSelection = false;
-            this.lstView_Consos.Location = new System.Drawing.Point(10, 10);
-            this.lstView_Consos.Margin = new System.Windows.Forms.Padding(10);
-            this.lstView_Consos.MultiSelect = false;
-            this.lstView_Consos.Name = "lstView_Consos";
-            this.lstView_Consos.Size = new System.Drawing.Size(417, 382);
-            this.lstView_Consos.TabIndex = 0;
-            this.lstView_Consos.TileSize = new System.Drawing.Size(135, 135);
-            this.lstView_Consos.UseCompatibleStateImageBehavior = false;
-            this.lstView_Consos.View = System.Windows.Forms.View.List;
-            this.lstView_Consos.DoubleClick += new System.EventHandler(this.lstView_Consos_DoubleClick);
+            this.panel3.Controls.Add(this.btn_Delete);
+            this.panel3.Controls.Add(this.groupBox1);
+            this.panel3.Controls.Add(this.btn_Save);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(440, 10);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(384, 382);
+            this.panel3.TabIndex = 3;
+            // 
+            // btn_Delete
+            // 
+            this.btn_Delete.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btn_Delete.IconColor = System.Drawing.Color.Black;
+            this.btn_Delete.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btn_Delete.Location = new System.Drawing.Point(3, 309);
+            this.btn_Delete.Name = "btn_Delete";
+            this.btn_Delete.Size = new System.Drawing.Size(181, 58);
+            this.btn_Delete.TabIndex = 3;
+            this.btn_Delete.Text = "Vider le panier";
+            this.btn_Delete.UseVisualStyleBackColor = true;
+            this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
             // 
             // groupBox1
             // 
@@ -218,27 +226,36 @@
             this.clQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.clQuantity.Width = 90;
             // 
-            // iconButton1
+            // btn_Save
             // 
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.iconButton1.IconColor = System.Drawing.Color.Black;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.Location = new System.Drawing.Point(94, 309);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(211, 58);
-            this.iconButton1.TabIndex = 2;
-            this.iconButton1.Text = "iconButton1";
-            this.iconButton1.UseVisualStyleBackColor = true;
+            this.btn_Save.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_Save.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btn_Save.IconColor = System.Drawing.Color.Black;
+            this.btn_Save.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btn_Save.Location = new System.Drawing.Point(200, 309);
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.Size = new System.Drawing.Size(181, 58);
+            this.btn_Save.TabIndex = 2;
+            this.btn_Save.Text = "Enregistrer";
+            this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
-            // panel3
+            // lstView_Consos
             // 
-            this.panel3.Controls.Add(this.groupBox1);
-            this.panel3.Controls.Add(this.iconButton1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(440, 10);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(384, 382);
-            this.panel3.TabIndex = 3;
+            this.lstView_Consos.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.lstView_Consos.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lstView_Consos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstView_Consos.HideSelection = false;
+            this.lstView_Consos.Location = new System.Drawing.Point(10, 10);
+            this.lstView_Consos.Margin = new System.Windows.Forms.Padding(10);
+            this.lstView_Consos.MultiSelect = false;
+            this.lstView_Consos.Name = "lstView_Consos";
+            this.lstView_Consos.Size = new System.Drawing.Size(417, 382);
+            this.lstView_Consos.TabIndex = 0;
+            this.lstView_Consos.TileSize = new System.Drawing.Size(135, 135);
+            this.lstView_Consos.UseCompatibleStateImageBehavior = false;
+            this.lstView_Consos.View = System.Windows.Forms.View.List;
+            this.lstView_Consos.DoubleClick += new System.EventHandler(this.lstView_Consos_DoubleClick);
             // 
             // FormAllConso
             // 
@@ -257,8 +274,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -276,7 +293,8 @@
         private System.Windows.Forms.ListView lstView_Basket;
         private System.Windows.Forms.ColumnHeader clLibelle;
         private System.Windows.Forms.ColumnHeader clQuantity;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton btn_Save;
         private System.Windows.Forms.Panel panel3;
+        private FontAwesome.Sharp.IconButton btn_Delete;
     }
 }

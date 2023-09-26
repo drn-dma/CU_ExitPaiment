@@ -18,10 +18,12 @@ namespace CU_ExitPaiment.Forms
         private Dictionary<string, object> sqlAlcool;
         private Dictionary<string, object> sqlResto;
         private Dictionary<string, object> sqlDessert;
+        private string idArdoise;
 
-        public FormAllConso()
+        public FormAllConso(string idArdoise)
         {
             InitializeComponent();
+            this.idArdoise = idArdoise;
         }
 
         private void FormAllConso_Load(object sender, EventArgs e)
@@ -61,7 +63,8 @@ namespace CU_ExitPaiment.Forms
             this.lstView_Consos.Items.Clear();
             foreach (var row in this.sqlSoft)
             {
-                this.lstView_Consos.Items.Add(row.Value.ToString());
+                var item = this.lstView_Consos.Items.Add(row.Value.ToString());
+                item.Tag = row.Key;
             }
         }
 
@@ -70,7 +73,8 @@ namespace CU_ExitPaiment.Forms
             this.lstView_Consos.Items.Clear();
             foreach (var row in this.sqlAlcool)
             {
-                this.lstView_Consos.Items.Add(row.Value.ToString());
+                var item = this.lstView_Consos.Items.Add(row.Value.ToString());
+                item.Tag = row.Key;
             }
         }
 
@@ -79,7 +83,8 @@ namespace CU_ExitPaiment.Forms
             this.lstView_Consos.Items.Clear();
             foreach (var row in this.sqlResto)
             {
-                this.lstView_Consos.Items.Add(row.Value.ToString());
+                var item = this.lstView_Consos.Items.Add(row.Value.ToString());
+                item.Tag = row.Key;
             }
         }
 
@@ -88,7 +93,8 @@ namespace CU_ExitPaiment.Forms
             this.lstView_Consos.Items.Clear();
             foreach (var row in this.sqlDessert)
             {
-                this.lstView_Consos.Items.Add(row.Value.ToString());
+                var item = this.lstView_Consos.Items.Add(row.Value.ToString());
+                item.Tag = row.Key;
             }
         }
 
@@ -118,6 +124,7 @@ namespace CU_ExitPaiment.Forms
                 {
                     ListViewItem newItem = new ListViewItem(selectedLibelle);
                     newItem.SubItems.Add("1");
+                    newItem.Tag = this.lstView_Consos.SelectedItems[0].Tag;
                     this.lstView_Basket.Items.Add(newItem);
                 }
             }
@@ -145,6 +152,35 @@ namespace CU_ExitPaiment.Forms
                     selectedItem.SubItems[1].Text = quantite.ToString();
                 }
             }
+        }
+
+        private void btn_Delete_Click(object sender, EventArgs e)
+        {
+            DialogResult dg = MessageBox.Show("Voulez-vous vraiment supprimer toutes les consommations ?", "Suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dg == DialogResult.Yes)
+            {
+                this.lstView_Basket.Items.Clear();
+            }
+        }
+
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, int> itemQuantity = new Dictionary<string, int> { };
+
+            foreach (ListViewItem item in this.lstView_Basket.Items)
+            {
+                int quantity = int.Parse(item.SubItems[1].Text);
+
+                itemQuantity.Add(item.Tag.ToString(), quantity);
+            }
+
+            SQLConnect.addConsoToArdoise(this.idArdoise, itemQuantity);
+
+        }
+
+        private void viewTag_DEBUGONLY(object sender, EventArgs e)
+        {
+            MessageBox.Show(this.lstView_Consos.SelectedItems[0].Tag.ToString());
         }
     }
 }
