@@ -15,7 +15,7 @@ namespace CU_ExitPaiment.Classes
     {
         #region Properties
 
-        /*public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";*/
+        public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";
         /*public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";*/
         private readonly static string _initialCatalog = "CU_ExitPaiement";
         /*        private readonly static string _userID = "cuw";
@@ -69,7 +69,15 @@ namespace CU_ExitPaiment.Classes
             using (var conn = new SqlConnection(builder.ConnectionString))
             {
                 //! Ouverture de la connexion
-                conn.Open();
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+                    Logger.WriteLog(e, e.StackTrace);
+                }
 
                 using (var command = new SqlCommand(queryWithParam, conn))
                 {
@@ -179,7 +187,14 @@ namespace CU_ExitPaiment.Classes
             using (var conn = new SqlConnection(builder.ConnectionString))
             {
                 //! Ouverture de la connexion
-                conn.Open();
+                try
+                {
+                    conn.Open();
+                }catch(Exception e)
+                {
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+                    Logger.WriteLog(e, e.StackTrace);
+                }
 
                 using (var command = new SqlCommand(queryToRead, conn))
                 {
@@ -290,7 +305,15 @@ namespace CU_ExitPaiment.Classes
             using (var conn = new SqlConnection(builder.ConnectionString))
             {
                 //! Ouverture de la connexion
-                conn.Open();
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+                    Logger.WriteLog(e, e.StackTrace);
+                }
 
                 using (var command = new SqlCommand(queryToWrite, conn))
                 {
@@ -335,7 +358,15 @@ namespace CU_ExitPaiment.Classes
             using (var conn = new SqlConnection(builder.ConnectionString))
             {
                 //! Ouverture de la connexion
-                conn.Open();
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+                    Logger.WriteLog(e, e.StackTrace);
+                }
 
                 using (var command = new SqlCommand(queryToWrite, conn))
                 {
@@ -765,6 +796,16 @@ namespace CU_ExitPaiment.Classes
             }
 
             return success;
+        }
+
+        public static bool deleteArdoise(string idArdoise)
+        {
+            List<SqlParameter> sqlParameters = new List<SqlParameter>();
+            SqlParameter param = new SqlParameter("@idArdoise", SqlDbType.Int);
+            param.Value = idArdoise;
+            sqlParameters.Add(param);
+
+            return ExecuteSQL_WithParameters("DELETE Ardoise WHERE Id_Ardoise = @idArdoise", sqlParameters);
         }
 
         #endregion

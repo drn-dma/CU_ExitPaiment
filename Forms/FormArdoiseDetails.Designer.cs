@@ -30,8 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormArdoiseDetails));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_DeleteArdoise = new FontAwesome.Sharp.IconButton();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lbl_ToClipboard = new System.Windows.Forms.Label();
             this.btn_NewClient = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_PrixEntreeApprox = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lbl_PrixConsoApprox = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.grpBox_Comment = new System.Windows.Forms.GroupBox();
             this.txtBox_Comment = new System.Windows.Forms.TextBox();
             this.grpBox_Conso = new System.Windows.Forms.GroupBox();
@@ -67,12 +74,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cBox_AdulteChauss__5 = new System.Windows.Forms.ComboBox();
-            this.lbl_PrixConsoApprox = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.lbl_PrixEntreeApprox = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lbl_ToClipboard = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.grpBox_Comment.SuspendLayout();
@@ -86,6 +87,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.btn_DeleteArdoise);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.lbl_ToClipboard);
             this.panel1.Controls.Add(this.btn_NewClient);
@@ -94,6 +96,52 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 80);
             this.panel1.TabIndex = 0;
+            // 
+            // btn_DeleteArdoise
+            // 
+            this.btn_DeleteArdoise.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btn_DeleteArdoise.AutoSize = true;
+            this.btn_DeleteArdoise.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_DeleteArdoise.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
+            this.btn_DeleteArdoise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_DeleteArdoise.ForeColor = System.Drawing.Color.LightGray;
+            this.btn_DeleteArdoise.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btn_DeleteArdoise.IconColor = System.Drawing.Color.LightGray;
+            this.btn_DeleteArdoise.IconFont = FontAwesome.Sharp.IconFont.Regular;
+            this.btn_DeleteArdoise.IconSize = 24;
+            this.btn_DeleteArdoise.Location = new System.Drawing.Point(657, 24);
+            this.btn_DeleteArdoise.Name = "btn_DeleteArdoise";
+            this.btn_DeleteArdoise.Size = new System.Drawing.Size(131, 32);
+            this.btn_DeleteArdoise.TabIndex = 56;
+            this.btn_DeleteArdoise.Text = "Supprimer l\'ardoise";
+            this.btn_DeleteArdoise.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_DeleteArdoise.UseVisualStyleBackColor = true;
+            this.btn_DeleteArdoise.Click += new System.EventHandler(this.btn_DeleteArdoise_Click);
+            // 
+            // label12
+            // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.LightGray;
+            this.label12.Location = new System.Drawing.Point(337, -2);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(131, 13);
+            this.label12.TabIndex = 55;
+            this.label12.Text = "(Clique pour copier le nom)";
+            // 
+            // lbl_ToClipboard
+            // 
+            this.lbl_ToClipboard.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_ToClipboard.AutoSize = true;
+            this.lbl_ToClipboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ToClipboard.ForeColor = System.Drawing.Color.LimeGreen;
+            this.lbl_ToClipboard.Location = new System.Drawing.Point(400, 53);
+            this.lbl_ToClipboard.Name = "lbl_ToClipboard";
+            this.lbl_ToClipboard.Size = new System.Drawing.Size(58, 17);
+            this.lbl_ToClipboard.TabIndex = 2;
+            this.lbl_ToClipboard.Text = "Copié !";
+            this.lbl_ToClipboard.Visible = false;
             // 
             // btn_NewClient
             // 
@@ -141,6 +189,54 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(800, 370);
             this.panel2.TabIndex = 1;
+            // 
+            // lbl_PrixEntreeApprox
+            // 
+            this.lbl_PrixEntreeApprox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lbl_PrixEntreeApprox.AutoSize = true;
+            this.lbl_PrixEntreeApprox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_PrixEntreeApprox.ForeColor = System.Drawing.Color.LightGray;
+            this.lbl_PrixEntreeApprox.Location = new System.Drawing.Point(251, 334);
+            this.lbl_PrixEntreeApprox.Name = "lbl_PrixEntreeApprox";
+            this.lbl_PrixEntreeApprox.Size = new System.Drawing.Size(40, 17);
+            this.lbl_PrixEntreeApprox.TabIndex = 54;
+            this.lbl_PrixEntreeApprox.Text = "9999";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.LightGray;
+            this.label15.Location = new System.Drawing.Point(57, 334);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(188, 17);
+            this.label15.TabIndex = 53;
+            this.label15.Text = "Coût Entrées (approx.) : ";
+            // 
+            // lbl_PrixConsoApprox
+            // 
+            this.lbl_PrixConsoApprox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lbl_PrixConsoApprox.AutoSize = true;
+            this.lbl_PrixConsoApprox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_PrixConsoApprox.ForeColor = System.Drawing.Color.LightGray;
+            this.lbl_PrixConsoApprox.Location = new System.Drawing.Point(471, 298);
+            this.lbl_PrixConsoApprox.Name = "lbl_PrixConsoApprox";
+            this.lbl_PrixConsoApprox.Size = new System.Drawing.Size(40, 17);
+            this.lbl_PrixConsoApprox.TabIndex = 52;
+            this.lbl_PrixConsoApprox.Text = "9999";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.LightGray;
+            this.label13.Location = new System.Drawing.Point(301, 298);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(185, 17);
+            this.label13.TabIndex = 51;
+            this.label13.Text = "Coût Consos (approx.) : ";
             // 
             // grpBox_Comment
             // 
@@ -604,79 +700,6 @@
             this.cBox_AdulteChauss__5.Size = new System.Drawing.Size(46, 24);
             this.cBox_AdulteChauss__5.TabIndex = 7;
             // 
-            // lbl_PrixConsoApprox
-            // 
-            this.lbl_PrixConsoApprox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.lbl_PrixConsoApprox.AutoSize = true;
-            this.lbl_PrixConsoApprox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_PrixConsoApprox.ForeColor = System.Drawing.Color.LightGray;
-            this.lbl_PrixConsoApprox.Location = new System.Drawing.Point(471, 298);
-            this.lbl_PrixConsoApprox.Name = "lbl_PrixConsoApprox";
-            this.lbl_PrixConsoApprox.Size = new System.Drawing.Size(40, 17);
-            this.lbl_PrixConsoApprox.TabIndex = 52;
-            this.lbl_PrixConsoApprox.Text = "9999";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.LightGray;
-            this.label13.Location = new System.Drawing.Point(301, 298);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(185, 17);
-            this.label13.TabIndex = 51;
-            this.label13.Text = "Coût Consos (approx.) : ";
-            // 
-            // lbl_PrixEntreeApprox
-            // 
-            this.lbl_PrixEntreeApprox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.lbl_PrixEntreeApprox.AutoSize = true;
-            this.lbl_PrixEntreeApprox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_PrixEntreeApprox.ForeColor = System.Drawing.Color.LightGray;
-            this.lbl_PrixEntreeApprox.Location = new System.Drawing.Point(251, 334);
-            this.lbl_PrixEntreeApprox.Name = "lbl_PrixEntreeApprox";
-            this.lbl_PrixEntreeApprox.Size = new System.Drawing.Size(40, 17);
-            this.lbl_PrixEntreeApprox.TabIndex = 54;
-            this.lbl_PrixEntreeApprox.Text = "9999";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.LightGray;
-            this.label15.Location = new System.Drawing.Point(57, 334);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(188, 17);
-            this.label15.TabIndex = 53;
-            this.label15.Text = "Coût Entrées (approx.) : ";
-            // 
-            // lbl_ToClipboard
-            // 
-            this.lbl_ToClipboard.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbl_ToClipboard.AutoSize = true;
-            this.lbl_ToClipboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ToClipboard.ForeColor = System.Drawing.Color.LimeGreen;
-            this.lbl_ToClipboard.Location = new System.Drawing.Point(400, 53);
-            this.lbl_ToClipboard.Name = "lbl_ToClipboard";
-            this.lbl_ToClipboard.Size = new System.Drawing.Size(58, 17);
-            this.lbl_ToClipboard.TabIndex = 2;
-            this.lbl_ToClipboard.Text = "Copié !";
-            this.lbl_ToClipboard.Visible = false;
-            // 
-            // label12
-            // 
-            this.label12.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.LightGray;
-            this.label12.Location = new System.Drawing.Point(337, -2);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(131, 13);
-            this.label12.TabIndex = 55;
-            this.label12.Text = "(Clique pour copier le nom)";
-            // 
             // FormArdoiseDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -755,5 +778,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lbl_ToClipboard;
         private System.Windows.Forms.Label label12;
+        private FontAwesome.Sharp.IconButton btn_DeleteArdoise;
     }
 }

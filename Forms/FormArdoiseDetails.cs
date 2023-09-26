@@ -310,5 +310,11 @@ namespace CU_ExitPaiment.Forms
 
             timer.Stop();
         }
+
+        private void btn_DeleteArdoise_Click(object sender, EventArgs e)
+        {
+            if(SQLConnect.deleteArdoise(idArdoise)) this.Close();
+            
+        }
     }
 }

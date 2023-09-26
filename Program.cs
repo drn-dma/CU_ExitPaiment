@@ -18,13 +18,18 @@ namespace CU_ExitPaiment
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
             AppDomain currentDomain = default(AppDomain);
             currentDomain = AppDomain.CurrentDomain;
+
             // Handler for unhandled exceptions.
             currentDomain.UnhandledException += GlobalUnhandledExceptionHandler;
             // Handler for exceptions in threads behind forms.
             Application.ThreadException += GlobalThreadExceptionHandler;
+
+
+            Application.Run(new Form1());
+            
+            
 
         }
 

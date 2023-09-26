@@ -20,7 +20,7 @@ namespace CU_ExitPaiment.Classes
             {
                 using (StreamWriter sw = new StreamWriter(textFilePath, true))
                 {
-                    sw.WriteLine($"{DateTime.Now} : {message} ---->> {e.Message}");
+                    sw.WriteLine($"{DateTime.Now} : \n {message} ---->> {e.Message} \n\n\n");
                 }
             }
             else
@@ -29,7 +29,7 @@ namespace CU_ExitPaiment.Classes
 
                 using (StreamWriter sw = new StreamWriter(textFilePath, true))
                 {
-                    sw.WriteLine($"{DateTime.Now} : {message} ---->> {e.Message}");
+                    sw.WriteLine($"{DateTime.Now} : \n {message} ---->> {e.Message} \n\n\n");
                 }
 
             }
