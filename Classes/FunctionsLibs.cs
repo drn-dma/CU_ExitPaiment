@@ -11,7 +11,7 @@ namespace CU_ExitPaiment.Classes
     internal class FunctionsLibs
     {
 
-        #region add_UControls Methods
+        #region Methods
 
         /// <summary>
         //! Ajout d'un UserControl 'uc' dans un Panel 'panelObject' et le met au premier plan (BringToFront) 
@@ -39,7 +39,7 @@ namespace CU_ExitPaiment.Classes
         }
 
 
-        public static DialogResult InputBox(string title, string promptText, ref string value)
+        public static DialogResult InputBox_Reason(string title, string promptText, ref string value)
         {
             Form form = new Form();
             Label label = new Label();
@@ -82,6 +82,51 @@ namespace CU_ExitPaiment.Classes
             form.MaximizeBox = false;
             form.AcceptButton = buttonOk;
                
+            form.Controls.Add(label);
+            form.Controls.Add(textBox);
+            form.Controls.Add(buttonOk);
+
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+            return dialogResult;
+        }
+
+        public static DialogResult InputBox_General(string title, string promptText, ref string value)
+        {
+            Form form = new Form();
+            Label label = new Label();
+            TextBox textBox = new TextBox();
+            Button buttonOk = new Button();
+
+            form.Text = title;
+
+            
+            label.Text = promptText;
+            textBox.Text = value;
+            textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            textBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+            textBox.MaxLength = 90;
+
+            buttonOk.Text = "OK";
+            buttonOk.DialogResult = DialogResult.OK;
+
+            label.SetBounds(12, 20, 250, 13);
+            textBox.SetBounds(12, 36, 250, 20);
+            buttonOk.SetBounds(185, 72, 75, 23);
+
+            label.AutoSize = true;
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            form.ClientSize = new Size(396, 107);
+            form.ClientSize = new Size(Math.Min(300, label.Right + 10), form.ClientSize.Height);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+
             form.Controls.Add(label);
             form.Controls.Add(textBox);
             form.Controls.Add(buttonOk);

@@ -56,6 +56,12 @@ namespace CU_ExitPaiment.Classes
                     Id = 0,
                     Name = "Server_Adress",
                     Value = "DO_LAPTOP\\SQLEXPRESS"
+                 },
+                 new GlobalSettings()
+                 {
+                     Id = 1,
+                     Name = "AdminPin",
+                     Value = "1234"
                  }
             }};
             

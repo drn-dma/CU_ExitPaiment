@@ -20,11 +20,11 @@ namespace CU_ExitPaiment.Classes
 
 
         public static string _dataSource = GlobalSettings.Settings[0].Value;
-
         private readonly static string _initialCatalog = "CU_ExitPaiement";
-        /*        private readonly static string _userID = "cuw";
-        *//*        private readonly static string _password = "Climb-up2021";
-        */
+
+        /*        private readonly static string _userID = "cuw";*/
+        /*     private readonly static string _password = "Climb-up2021";*/
+        
         #endregion
 
         #region readDataFromSQL_NoParameters Methods
@@ -79,9 +79,22 @@ namespace CU_ExitPaiment.Classes
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Impossible de se connecter à la base de données");
-                    
                     Logger.WriteLog(e, e.StackTrace);
+
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+
+                    string connString = "";
+
+                    if(FunctionsLibs.InputBox_General("Modifier adresse BDD", "Saisir l'adresse : ", ref connString) == DialogResult.OK)
+                    {
+                        Logger.UpdateParam("Server_Adress", connString);
+                        Application.Restart();
+                    }
+
+                    
+
+                    
+                    
                 }
 
                 using (var command = new SqlCommand(queryWithParam, conn))
@@ -195,10 +208,20 @@ namespace CU_ExitPaiment.Classes
                 try
                 {
                     conn.Open();
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
-                    MessageBox.Show("Impossible de se connecter à la base de données");
                     Logger.WriteLog(e, e.StackTrace);
+
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+
+                    string connString = "";
+
+                    if (FunctionsLibs.InputBox_General("Modifier adresse BDD", "Saisir l'adresse : ", ref connString) == DialogResult.OK)
+                    {
+                        Logger.UpdateParam("Server_Adress", connString);
+                        Application.Restart();
+                    }
                 }
 
                 using (var command = new SqlCommand(queryToRead, conn))
@@ -316,8 +339,17 @@ namespace CU_ExitPaiment.Classes
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Impossible de se connecter à la base de données");
                     Logger.WriteLog(e, e.StackTrace);
+
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+
+                    string connString = "";
+
+                    if (FunctionsLibs.InputBox_General("Modifier adresse BDD", "Saisir l'adresse : ", ref connString) == DialogResult.OK)
+                    {
+                        Logger.UpdateParam("Server_Adress", connString);
+                        Application.Restart();
+                    }
                 }
 
                 using (var command = new SqlCommand(queryToWrite, conn))
@@ -369,8 +401,18 @@ namespace CU_ExitPaiment.Classes
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Impossible de se connecter à la base de données");
                     Logger.WriteLog(e, e.StackTrace);
+
+                    MessageBox.Show("Impossible de se connecter à la base de données");
+
+                    string connString = "";
+
+                    if (FunctionsLibs.InputBox_General("Modifier adresse BDD", "Saisir l'adresse : ", ref connString) == DialogResult.OK)
+                    {
+                        Logger.UpdateParam("Server_Adress", connString);
+                        Application.Restart();
+                    }
+
                 }
 
                 using (var command = new SqlCommand(queryToWrite, conn))
@@ -811,6 +853,16 @@ namespace CU_ExitPaiment.Classes
             sqlParameters.Add(param);
 
             return ExecuteSQL_WithParameters("DELETE Ardoise WHERE Id_Ardoise = @idArdoise", sqlParameters);
+        }
+
+        public static bool isAdmin(string pin)
+        {
+            if(GlobalSettings.Settings[1].Value == pin)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #endregion

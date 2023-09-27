@@ -74,6 +74,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cBox_AdulteChauss__5 = new System.Windows.Forms.ComboBox();
+            this.iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.grpBox_Comment.SuspendLayout();
@@ -700,6 +701,15 @@
             this.cBox_AdulteChauss__5.Size = new System.Drawing.Size(46, 24);
             this.cBox_AdulteChauss__5.TabIndex = 7;
             // 
+            // iconMenuItem1
+            // 
+            this.iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.iconMenuItem1.IconColor = System.Drawing.Color.Black;
+            this.iconMenuItem1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconMenuItem1.Name = "iconMenuItem1";
+            this.iconMenuItem1.Size = new System.Drawing.Size(32, 19);
+            this.iconMenuItem1.Text = "iconMenuItem1";
+            // 
             // FormArdoiseDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -779,5 +789,6 @@
         private System.Windows.Forms.Label lbl_ToClipboard;
         private System.Windows.Forms.Label label12;
         private FontAwesome.Sharp.IconButton btn_DeleteArdoise;
+        private FontAwesome.Sharp.IconMenuItem iconMenuItem1;
     }
 }

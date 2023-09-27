@@ -12,24 +12,18 @@ namespace CU_ExitPaiment.Classes
         private int id;
         private string name;
         private string value;
-        private static List<GlobalSettings> settings;
+        private static List<GlobalSettings> settings = new List<GlobalSettings>();
 
         public GlobalSettings()
         {
-            settings = new List<GlobalSettings>
-            {
-                this
-            };
+            settings.Add(this);
         }
 
         public GlobalSettings(string name, string value, int id) {
             this.id = id;
             this.name = name;
             this.value = value;
-            settings = new List<GlobalSettings>
-            {
-                this
-            };
+            settings.Add(this);
         }
 
         public int Id { get => id; set => id = value; }

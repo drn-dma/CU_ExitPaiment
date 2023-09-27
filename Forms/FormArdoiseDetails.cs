@@ -247,7 +247,7 @@ namespace CU_ExitPaiment.Forms
             }
             else
             {
-                if (FunctionsLibs.InputBox("Pourquoi ?", "Raison de la non fidélisation :", ref raison) == DialogResult.OK)
+                if (FunctionsLibs.InputBox_Reason("Pourquoi ?", "Raison de la non fidélisation :", ref raison) == DialogResult.OK)
                 {
 
                     SQLConnect.setLoyalFalseAndCommentForArdoise(this.idArdoise, this.date, raison);

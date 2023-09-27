@@ -32,6 +32,9 @@ namespace CU_ExitPaiment
             this.formStats = new FormStats();
             this.formSettings = new FormSettings();
             OpenChildForm(formHome);
+            this.btn_Home.Enabled = false;
+            this.btn_Stats.Enabled = true;
+            this.btn_Settings.Enabled = true;
 
         }
 
@@ -71,10 +74,29 @@ namespace CU_ExitPaiment
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            OpenChildForm(formSettings);
-            this.btn_Home.Enabled = true;
-            this.btn_Stats.Enabled = true;
-            this.btn_Settings.Enabled = false;
+            string pin = "";
+
+            if(FunctionsLibs.InputBox_General("Connexion administrateur", "Code Pin", ref pin) == DialogResult.OK)
+            {
+                if (SQLConnect.isAdmin(pin))
+                {
+                    OpenChildForm(formSettings);
+                    this.btn_Home.Enabled = true;
+                    this.btn_Stats.Enabled = true;
+                    this.btn_Settings.Enabled = false;
+
+                }
+                else
+                {
+                    OpenChildForm(formHome);
+                    this.btn_Home.Enabled = false;
+                    this.btn_Stats.Enabled = true;
+                    this.btn_Settings.Enabled = true;
+                }
+            }
+
+            
+            
 
         }
 
