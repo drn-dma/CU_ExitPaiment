@@ -15,8 +15,12 @@ namespace CU_ExitPaiment.Classes
     {
         #region Properties
 
-        public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";
+        /*public static string _dataSource = @"PCFIXE-DORIAN\SQLEXPRESS";*/
         /*public static string _dataSource = @"DO_LAPTOP\SQLEXPRESS";*/
+
+
+        public static string _dataSource = GlobalSettings.Settings[0].Value;
+
         private readonly static string _initialCatalog = "CU_ExitPaiement";
         /*        private readonly static string _userID = "cuw";
         *//*        private readonly static string _password = "Climb-up2021";
@@ -76,6 +80,7 @@ namespace CU_ExitPaiment.Classes
                 catch (Exception e)
                 {
                     MessageBox.Show("Impossible de se connecter à la base de données");
+                    
                     Logger.WriteLog(e, e.StackTrace);
                 }
 

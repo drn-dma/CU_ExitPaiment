@@ -2,6 +2,7 @@
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,6 +27,14 @@ namespace CU_ExitPaiment
             // Handler for exceptions in threads behind forms.
             Application.ThreadException += GlobalThreadExceptionHandler;
 
+            if (!File.Exists(Logger.MainPath + "\\settings.json"))
+            {
+                Logger.InitParam();
+            }
+            else
+            {
+                Logger.ReadParam();
+            }
 
             Application.Run(new Form1());
             
