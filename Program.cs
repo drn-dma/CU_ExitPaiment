@@ -27,6 +27,7 @@ namespace CU_ExitPaiment
             // Handler for exceptions in threads behind forms.
             Application.ThreadException += GlobalThreadExceptionHandler;
 
+
             if (!File.Exists(Logger.MainPath + "\\settings.json"))
             {
                 Logger.InitParam();

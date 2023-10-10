@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -855,14 +856,41 @@ namespace CU_ExitPaiment.Classes
             return ExecuteSQL_WithParameters("DELETE Ardoise WHERE Id_Ardoise = @idArdoise", sqlParameters);
         }
 
+
+
         public static bool isAdmin(string pin)
         {
-            if(GlobalSettings.Settings[1].Value == pin)
-            {
-                return true;
-            }
+            List<SqlParameter> sqlParameters = new List<SqlParameter>();
+            SqlParameter param = new SqlParameter("@cPassword", SqlDbType.Int);
+            param.Value = pin;
+            sqlParameters.Add(param);
 
+            var b_returned = readDataFromSQL_WithParameters("DECLARE @responseMessage NVARCHAR(250) EXEC dbo.uspLogin @pLoginName = N'admin', @pPassword = @cPassword, @responseMessage = @responseMessage OUTPUT SELECT @responseMessage as N'@responseMessage'", sqlParameters);
+
+            if (b_returned.Count != 0)
+            {
+                switch (b_returned[0]["@responseMessage"])
+                {
+                    case "true":
+                        return true;
+                    default:
+                        return false;
+                }
+            }
             return false;
+        }
+
+        public static bool changeUserPassword(string username, string password)
+        {
+            List<SqlParameter> sqlParameters = new List<SqlParameter>();
+            SqlParameter param1 = new SqlParameter("@name", SqlDbType.VarChar);
+            SqlParameter param2 = new SqlParameter("@cPassword", SqlDbType.Int);
+            param1.Value = username;
+            param2.Value = password;
+            sqlParameters.Add(param1);
+            sqlParameters.Add(param2);
+
+            return ExecuteSQL_WithParameters("EXEC dbo.uspUpdatePsw @pLoginName = @name, @pPassword = @cPassword", sqlParameters);
         }
 
         #endregion

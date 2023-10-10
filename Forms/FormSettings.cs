@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace CU_ExitPaiment.Forms
 {
@@ -26,6 +27,20 @@ namespace CU_ExitPaiment.Forms
         private void btn_Save_Click(object sender, EventArgs e)
         {
             Logger.UpdateParam("Server_Adress", txtBox_ServerAddr.Text);
+        }
+
+        private void btn_SaveNewPsw_Click(object sender, EventArgs e)
+        {
+            var checkedButton = grpBox_UpdatePsw.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
+            switch (checkedButton.Text)
+            {
+                case "Utilisateur":
+                    SQLConnect.changeUserPassword("user", this.txtBox_NewPsw.Text);
+                    break;
+                case "Administrateur":
+                    SQLConnect.changeUserPassword("admin", this.txtBox_NewPsw.Text);
+                    break;
+            }
         }
     }
 }
