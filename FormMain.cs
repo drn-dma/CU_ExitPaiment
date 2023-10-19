@@ -20,9 +20,12 @@ namespace CU_ExitPaiment
         private FormStats formStats;
         private FormSettings formSettings;
 
+        private event EventHandler homeBtnClick;
+
         public Form1()
         {
             InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -30,7 +33,7 @@ namespace CU_ExitPaiment
             this.Size = new Size(1024, 768);
             this.formHome = new FormHome();
             this.formStats = new FormStats();
-            this.formSettings = new FormSettings();
+            this.formSettings = new FormSettings(this);
             OpenChildForm(formHome);
             this.btn_Home.Enabled = false;
             this.btn_Stats.Enabled = true;
@@ -56,13 +59,15 @@ namespace CU_ExitPaiment
 
         }
 
-        private void btn_Home_Click(object sender, EventArgs e)
+        public void btn_Home_Click(object sender, EventArgs e)
         {
+
             OpenChildForm(formHome);
             this.btn_Home.Enabled = false;
             this.btn_Stats.Enabled = true;
             this.btn_Settings.Enabled = true;
         }
+
 
         private void btn_Stats_Click(object sender, EventArgs e)
         {
@@ -76,7 +81,7 @@ namespace CU_ExitPaiment
         {
             string pin = "";
 
-            if(FunctionsLibs.InputBox_General("Connexion administrateur", "Code Pin", ref pin) == DialogResult.OK)
+            if (FunctionsLibs.InputBox_General("Connexion administrateur", "Code Pin", ref pin) == DialogResult.OK)
             {
                 if (SQLConnect.isAdmin(pin))
                 {
@@ -93,12 +98,10 @@ namespace CU_ExitPaiment
                     this.btn_Stats.Enabled = true;
                     this.btn_Settings.Enabled = true;
                 }
-            }
-
-            
-            
+            }           
 
         }
+
 
         private void btn_EnabledChanged(object sender, EventArgs e)
         {

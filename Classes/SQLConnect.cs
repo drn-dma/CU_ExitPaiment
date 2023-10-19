@@ -893,6 +893,11 @@ namespace CU_ExitPaiment.Classes
             return ExecuteSQL_WithParameters("EXEC dbo.uspUpdatePsw @pLoginName = @name, @pPassword = @cPassword", sqlParameters);
         }
 
+        public static List<Dictionary<string, object>> getAllUsername()
+        {
+            return readDataFromSQL_NoParameters("SELECT name from Users ORDER BY name ASC");
+        }
+
         #endregion
     }
 }

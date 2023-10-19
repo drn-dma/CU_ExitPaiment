@@ -32,12 +32,14 @@
             this.txtBox_ServerAddr = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_Save = new FontAwesome.Sharp.IconButton();
-            this.rdb_User = new System.Windows.Forms.RadioButton();
-            this.rdb_Admin = new System.Windows.Forms.RadioButton();
             this.grpBox_UpdatePsw = new System.Windows.Forms.GroupBox();
-            this.txtBox_NewPsw = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox_Users = new System.Windows.Forms.ComboBox();
             this.btn_SaveNewPsw = new FontAwesome.Sharp.IconButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtBox_NewPsw = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtBox_VerifPsw = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.grpBox_UpdatePsw.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,80 +93,45 @@
             this.btn_Save.UseVisualStyleBackColor = true;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
-            // rdb_User
-            // 
-            this.rdb_User.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rdb_User.AutoSize = true;
-            this.rdb_User.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.rdb_User.Location = new System.Drawing.Point(72, 48);
-            this.rdb_User.Name = "rdb_User";
-            this.rdb_User.Size = new System.Drawing.Size(71, 17);
-            this.rdb_User.TabIndex = 4;
-            this.rdb_User.TabStop = true;
-            this.rdb_User.Tag = "userSelect";
-            this.rdb_User.Text = "Utilisateur";
-            this.rdb_User.UseVisualStyleBackColor = true;
-            // 
-            // rdb_Admin
-            // 
-            this.rdb_Admin.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rdb_Admin.AutoSize = true;
-            this.rdb_Admin.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.rdb_Admin.Location = new System.Drawing.Point(72, 74);
-            this.rdb_Admin.Name = "rdb_Admin";
-            this.rdb_Admin.Size = new System.Drawing.Size(91, 17);
-            this.rdb_Admin.TabIndex = 5;
-            this.rdb_Admin.TabStop = true;
-            this.rdb_Admin.Tag = "userSelect";
-            this.rdb_Admin.Text = "Administrateur";
-            this.rdb_Admin.UseVisualStyleBackColor = true;
-            // 
             // grpBox_UpdatePsw
             // 
             this.grpBox_UpdatePsw.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.grpBox_UpdatePsw.Controls.Add(this.label5);
+            this.grpBox_UpdatePsw.Controls.Add(this.label4);
+            this.grpBox_UpdatePsw.Controls.Add(this.txtBox_VerifPsw);
+            this.grpBox_UpdatePsw.Controls.Add(this.comboBox_Users);
             this.grpBox_UpdatePsw.Controls.Add(this.btn_SaveNewPsw);
             this.grpBox_UpdatePsw.Controls.Add(this.label3);
             this.grpBox_UpdatePsw.Controls.Add(this.txtBox_NewPsw);
-            this.grpBox_UpdatePsw.Controls.Add(this.rdb_Admin);
-            this.grpBox_UpdatePsw.Controls.Add(this.rdb_User);
             this.grpBox_UpdatePsw.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.grpBox_UpdatePsw.Location = new System.Drawing.Point(21, 205);
             this.grpBox_UpdatePsw.Name = "grpBox_UpdatePsw";
-            this.grpBox_UpdatePsw.Size = new System.Drawing.Size(247, 233);
+            this.grpBox_UpdatePsw.Size = new System.Drawing.Size(246, 233);
             this.grpBox_UpdatePsw.TabIndex = 6;
             this.grpBox_UpdatePsw.TabStop = false;
             this.grpBox_UpdatePsw.Text = "Modification du mot de passe";
             // 
-            // txtBox_NewPsw
+            // comboBox_Users
             // 
-            this.txtBox_NewPsw.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtBox_NewPsw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.txtBox_NewPsw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBox_NewPsw.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.txtBox_NewPsw.Location = new System.Drawing.Point(20, 128);
-            this.txtBox_NewPsw.Name = "txtBox_NewPsw";
-            this.txtBox_NewPsw.Size = new System.Drawing.Size(199, 20);
-            this.txtBox_NewPsw.TabIndex = 6;
-            this.txtBox_NewPsw.UseSystemPasswordChar = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 112);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(126, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Nouveau mot de passe : ";
+            this.comboBox_Users.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.comboBox_Users.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Users.FormattingEnabled = true;
+            this.comboBox_Users.Location = new System.Drawing.Point(56, 36);
+            this.comboBox_Users.Name = "comboBox_Users";
+            this.comboBox_Users.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_Users.TabIndex = 9;
+            this.comboBox_Users.SelectedIndexChanged += new System.EventHandler(this.comboBox_Users_SelectedIndexChanged);
             // 
             // btn_SaveNewPsw
             // 
+            this.btn_SaveNewPsw.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_SaveNewPsw.AutoSize = true;
             this.btn_SaveNewPsw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_SaveNewPsw.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.btn_SaveNewPsw.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
             this.btn_SaveNewPsw.IconColor = System.Drawing.SystemColors.ControlLight;
             this.btn_SaveNewPsw.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btn_SaveNewPsw.Location = new System.Drawing.Point(56, 163);
+            this.btn_SaveNewPsw.Location = new System.Drawing.Point(56, 164);
             this.btn_SaveNewPsw.Margin = new System.Windows.Forms.Padding(1);
             this.btn_SaveNewPsw.Name = "btn_SaveNewPsw";
             this.btn_SaveNewPsw.Size = new System.Drawing.Size(128, 56);
@@ -173,6 +140,61 @@
             this.btn_SaveNewPsw.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_SaveNewPsw.UseVisualStyleBackColor = true;
             this.btn_SaveNewPsw.Click += new System.EventHandler(this.btn_SaveNewPsw_Click);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 69);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(126, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Nouveau mot de passe : ";
+            // 
+            // txtBox_NewPsw
+            // 
+            this.txtBox_NewPsw.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtBox_NewPsw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.txtBox_NewPsw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBox_NewPsw.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.txtBox_NewPsw.Location = new System.Drawing.Point(20, 85);
+            this.txtBox_NewPsw.Name = "txtBox_NewPsw";
+            this.txtBox_NewPsw.Size = new System.Drawing.Size(199, 20);
+            this.txtBox_NewPsw.TabIndex = 6;
+            this.txtBox_NewPsw.UseSystemPasswordChar = true;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(17, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(126, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Confirmer mot de passe : ";
+            // 
+            // txtBox_VerifPsw
+            // 
+            this.txtBox_VerifPsw.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtBox_VerifPsw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.txtBox_VerifPsw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBox_VerifPsw.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.txtBox_VerifPsw.Location = new System.Drawing.Point(20, 130);
+            this.txtBox_VerifPsw.Name = "txtBox_VerifPsw";
+            this.txtBox_VerifPsw.Size = new System.Drawing.Size(199, 20);
+            this.txtBox_VerifPsw.TabIndex = 10;
+            this.txtBox_VerifPsw.UseSystemPasswordChar = true;
+            this.txtBox_VerifPsw.TextChanged += new System.EventHandler(this.txtBox_VerifPsw_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(53, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Utilisateur : ";
             // 
             // FormSettings
             // 
@@ -201,11 +223,13 @@
         private System.Windows.Forms.TextBox txtBox_ServerAddr;
         private System.Windows.Forms.Label label2;
         private FontAwesome.Sharp.IconButton btn_Save;
-        private System.Windows.Forms.RadioButton rdb_User;
-        private System.Windows.Forms.RadioButton rdb_Admin;
         private System.Windows.Forms.GroupBox grpBox_UpdatePsw;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBox_NewPsw;
         private FontAwesome.Sharp.IconButton btn_SaveNewPsw;
+        private System.Windows.Forms.ComboBox comboBox_Users;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtBox_VerifPsw;
+        private System.Windows.Forms.Label label5;
     }
 }
