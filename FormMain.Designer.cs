@@ -76,7 +76,7 @@
             this.btn_Settings.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.btn_Settings.Size = new System.Drawing.Size(287, 72);
             this.btn_Settings.TabIndex = 8;
-            this.btn_Settings.Text = "Settings";
+            this.btn_Settings.Text = "Paramètres";
             this.btn_Settings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_Settings.UseVisualStyleBackColor = true;
             this.btn_Settings.EnabledChanged += new System.EventHandler(this.btn_EnabledChanged);

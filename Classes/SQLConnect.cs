@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -446,18 +447,21 @@ namespace CU_ExitPaiment.Classes
             SqlParameter q1Param2 = new SqlParameter("@firstname", DbType.String);
             SqlParameter q1Param3 = new SqlParameter("@date", DbType.String);
             SqlParameter q1Param4 = new SqlParameter("@new", DbType.Binary);
+            SqlParameter q1Param5 = new SqlParameter("@dateNew", SqlDbType.Date);
 
             q1Param1.Value = nom;
             q1Param2.Value = prenom;
             q1Param3.Value = date.ToShortDateString();
             q1Param4.Value = isNew;
+            q1Param5.Value = DateTime.Now.ToString("d");
 
             parameters1.Add(q1Param1);
             parameters1.Add(q1Param2);
             parameters1.Add(q1Param3);
             parameters1.Add(q1Param4);
+            parameters1.Add(q1Param5);
 
-            string query1 = "EXEC InsertNewClientAndArdoise @nom = @name, @prenom = @firstname ,@dateArdoise = @date, @isNew = @new";
+            string query1 = "EXEC InsertNewClientAndArdoise @nom = @name, @prenom = @firstname ,@dateArdoise = @date, @isNew = @new, @dateCreation = @dateNew";
             ExecuteSQL_WithParameters(query1, parameters1);
 
             bool success = false;
@@ -574,6 +578,31 @@ namespace CU_ExitPaiment.Classes
         {
             var result = readDataFromSQL_NoParameters($"SELECT Id_Consommation, libelle, prix, Id_TypeConso FROM Consommation");
             return result;
+        }
+        
+        public static List<Dictionary<string, object>> getLoyalClient(string idClient)
+        {
+            SqlParameter param = new SqlParameter("@idClient", SqlDbType.Int);
+            param.Value = idClient;
+            List<SqlParameter> sqlParameters = new List<SqlParameter> { param };
+
+            return readDataFromSQL_WithParameters("SELECT dateFidelisation FROM Clients WHERE Id_Clients = @idClient", sqlParameters);
+        }
+
+        public static List<Dictionary<string, object>> getAllEntryBefLoyal(string idClient, string dateLoyal)
+        {
+            SqlParameter param = new SqlParameter("@idClient", SqlDbType.Int);
+            SqlParameter param2 = new SqlParameter("@date", SqlDbType.Date);
+            param.Value = idClient;
+            param2.Value = dateLoyal;
+            List<SqlParameter> sqlParameters = new List<SqlParameter> { param, param2};
+
+            return readDataFromSQL_WithParameters("SELECT COUNT(quantite) as nbrEntree FROM regler r JOIN Ardoise a on a.Id_Ardoise = r.Id_Ardoise WHERE Id_EntreeMatos IN (1, 2, 3) and a.Id_Clients = @idClient AND CONVERT(DATE, a.dateArdoise, 103) <= @date", sqlParameters);
+        }
+
+        public static List<Dictionary<string, object>> getClientInfo()
+        {           
+            return readDataFromSQL_NoParameters("SELECT c.Id_Clients, CONCAT(c.nom, ' ',c.prenom) as nomPrenom FROM Clients c");
         }
 
         public static List<Dictionary<string, object>> getClientInfo(string idArdoise)
@@ -737,11 +766,14 @@ namespace CU_ExitPaiment.Classes
 
         public static bool setIsNewFalseForClient(int idClient)
         {
-            string query = "UPDATE Clients SET isNew = 0 WHERE Id_Clients = @idClient";
+            string query = "UPDATE Clients SET isNew = 0, dateFidelisation = @date WHERE Id_Clients = @idClient";
 
             List<SqlParameter> parameters = new List<SqlParameter> { };
             SqlParameter param = new SqlParameter("@idClient", SqlDbType.Int);
+            SqlParameter param2 = new SqlParameter("@date", SqlDbType.Date);
+            param2.Value = DateTime.Now.ToString("d");
             param.Value = idClient;
+            parameters.Add(param2);
             parameters.Add(param);
 
             return ExecuteSQL_WithParameters(query, parameters);
@@ -856,8 +888,6 @@ namespace CU_ExitPaiment.Classes
             return ExecuteSQL_WithParameters("DELETE Ardoise WHERE Id_Ardoise = @idArdoise", sqlParameters);
         }
 
-
-
         public static bool isAdmin(string pin)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
@@ -897,6 +927,40 @@ namespace CU_ExitPaiment.Classes
         {
             return readDataFromSQL_NoParameters("SELECT name from Users ORDER BY name ASC");
         }
+
+        public static List<Dictionary<string, object>> getAllEntryByUsernameAndTwoDate(string idClient, DateTime date1, DateTime date2)
+        {
+            
+            SqlParameter param = new SqlParameter("@idClient", SqlDbType.Int);
+            SqlParameter param2 = new SqlParameter("@date1", SqlDbType.Date);
+            SqlParameter param3 = new SqlParameter("@date2", SqlDbType.Date);
+            param.Value = idClient;
+            param2.Value = date1.ToString("d");
+            param3.Value = date2.ToString("d");
+            List<SqlParameter> sqlParameters1 = new List<SqlParameter> { param, param2, param3 };
+            List<SqlParameter> sqlParameters2 = new List<SqlParameter> { param2, param3 };
+            
+
+            if (idClient.Equals("default")){
+                return readDataFromSQL_WithParameters("SELECT sum(quantite) as nbrEntree FROM regler r JOIN Ardoise a on a.Id_Ardoise = r.Id_Ardoise WHERE Id_EntreeMatos IN (1, 2, 3) AND CONVERT(DATE, a.dateArdoise, 103) BETWEEN @date1 AND @date2", sqlParameters2);
+            }
+
+            return readDataFromSQL_WithParameters("SELECT sum(quantite) as nbrEntree FROM regler r JOIN Ardoise a on a.Id_Ardoise = r.Id_Ardoise WHERE Id_EntreeMatos IN (1, 2, 3) and a.Id_Clients = @idClient AND CONVERT(DATE, a.dateArdoise, 103) BETWEEN @date1 AND @date2", sqlParameters1);
+        }
+
+        public static List<Dictionary<string, object>> getAllDepenseForClient(string idClient, DateTime date1, DateTime date2)
+        {
+            SqlParameter param1 = new SqlParameter("@idClient", SqlDbType.Int);
+            SqlParameter param2 = new SqlParameter("@date1", SqlDbType.Date);
+            SqlParameter param3 = new SqlParameter("@date2", SqlDbType.Date);
+            param1.Value = idClient;
+            param2.Value = date1;
+            param3.Value = date2;
+            List<SqlParameter> sqlParameters = new List<SqlParameter> { param1, param2, param3 };
+            var returnedValue = readDataFromSQL_WithParameters("SELECT SUM(aRegler) as totalPaye FROM Ardoise WHERE Id_Clients = @idClient AND CONVERT(DATE, dateArdoise, 103) BETWEEN @date1 AND @date2", sqlParameters);
+            return returnedValue;
+        }
+
 
         #endregion
     }

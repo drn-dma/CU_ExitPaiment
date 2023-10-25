@@ -20,8 +20,6 @@ namespace CU_ExitPaiment
         private FormStats formStats;
         private FormSettings formSettings;
 
-        private event EventHandler homeBtnClick;
-
         public Form1()
         {
             InitializeComponent();

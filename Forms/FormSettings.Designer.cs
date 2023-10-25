@@ -33,13 +33,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btn_Save = new FontAwesome.Sharp.IconButton();
             this.grpBox_UpdatePsw = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtBox_VerifPsw = new System.Windows.Forms.TextBox();
             this.comboBox_Users = new System.Windows.Forms.ComboBox();
             this.btn_SaveNewPsw = new FontAwesome.Sharp.IconButton();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBox_NewPsw = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtBox_VerifPsw = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.grpBox_UpdatePsw.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,16 +50,16 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.label1.Location = new System.Drawing.Point(328, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 31);
+            this.label1.Size = new System.Drawing.Size(154, 31);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Settings";
+            this.label1.Text = "Paramètres";
             // 
             // txtBox_ServerAddr
             // 
             this.txtBox_ServerAddr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
             this.txtBox_ServerAddr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBox_ServerAddr.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.txtBox_ServerAddr.Location = new System.Drawing.Point(400, 92);
+            this.txtBox_ServerAddr.Location = new System.Drawing.Point(325, 100);
             this.txtBox_ServerAddr.Name = "txtBox_ServerAddr";
             this.txtBox_ServerAddr.Size = new System.Drawing.Size(199, 20);
             this.txtBox_ServerAddr.TabIndex = 1;
@@ -69,7 +69,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label2.Location = new System.Drawing.Point(173, 92);
+            this.label2.Location = new System.Drawing.Point(98, 100);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(221, 20);
             this.label2.TabIndex = 2;
@@ -83,10 +83,10 @@
             this.btn_Save.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
             this.btn_Save.IconColor = System.Drawing.SystemColors.ControlLight;
             this.btn_Save.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btn_Save.Location = new System.Drawing.Point(574, 259);
+            this.btn_Save.Location = new System.Drawing.Point(528, 83);
             this.btn_Save.Margin = new System.Windows.Forms.Padding(1);
             this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(136, 73);
+            this.btn_Save.Size = new System.Drawing.Size(128, 56);
             this.btn_Save.TabIndex = 3;
             this.btn_Save.Text = "Sauvegarder";
             this.btn_Save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -110,6 +110,39 @@
             this.grpBox_UpdatePsw.TabIndex = 6;
             this.grpBox_UpdatePsw.TabStop = false;
             this.grpBox_UpdatePsw.Text = "Modification du mot de passe";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(53, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Utilisateur : ";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(17, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(126, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Confirmer mot de passe : ";
+            // 
+            // txtBox_VerifPsw
+            // 
+            this.txtBox_VerifPsw.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtBox_VerifPsw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.txtBox_VerifPsw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBox_VerifPsw.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.txtBox_VerifPsw.Location = new System.Drawing.Point(20, 130);
+            this.txtBox_VerifPsw.Name = "txtBox_VerifPsw";
+            this.txtBox_VerifPsw.Size = new System.Drawing.Size(199, 20);
+            this.txtBox_VerifPsw.TabIndex = 10;
+            this.txtBox_VerifPsw.UseSystemPasswordChar = true;
+            this.txtBox_VerifPsw.TextChanged += new System.EventHandler(this.txtBox_VerifPsw_TextChanged);
             // 
             // comboBox_Users
             // 
@@ -163,39 +196,6 @@
             this.txtBox_NewPsw.TabIndex = 6;
             this.txtBox_NewPsw.UseSystemPasswordChar = true;
             // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 114);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(126, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Confirmer mot de passe : ";
-            // 
-            // txtBox_VerifPsw
-            // 
-            this.txtBox_VerifPsw.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtBox_VerifPsw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.txtBox_VerifPsw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBox_VerifPsw.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.txtBox_VerifPsw.Location = new System.Drawing.Point(20, 130);
-            this.txtBox_VerifPsw.Name = "txtBox_VerifPsw";
-            this.txtBox_VerifPsw.Size = new System.Drawing.Size(199, 20);
-            this.txtBox_VerifPsw.TabIndex = 10;
-            this.txtBox_VerifPsw.UseSystemPasswordChar = true;
-            this.txtBox_VerifPsw.TextChanged += new System.EventHandler(this.txtBox_VerifPsw_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(53, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Utilisateur : ";
-            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,7 +208,7 @@
             this.Controls.Add(this.txtBox_ServerAddr);
             this.Controls.Add(this.label1);
             this.Name = "FormSettings";
-            this.Text = "Settings";
+            this.Text = "Paramètres";
             this.Load += new System.EventHandler(this.FormSettings_Load);
             this.grpBox_UpdatePsw.ResumeLayout(false);
             this.grpBox_UpdatePsw.PerformLayout();

@@ -136,6 +136,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CBox.cs" />
     <Compile Include="Classes\CSDatePicker.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -185,6 +186,12 @@
     <Compile Include="Forms\FormStats.Designer.cs">
       <DependentUpon>FormStats.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormStats_Day-Month-Year.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormStats_Day-Month-Year.Designer.cs">
+      <DependentUpon>FormStats_Day-Month-Year.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMain.resx">
@@ -207,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormStats.resx">
       <DependentUpon>FormStats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormStats_Day-Month-Year.resx">
+      <DependentUpon>FormStats_Day-Month-Year.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
